@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A720B8E9-FF52-4FC6-9D4A-2AA87AD7E089}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Manufacture</RootNamespace>
+    <AssemblyName>Manufacture</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Furniture\AdultBed.cs" />
+    <Compile Include="Furniture\AdultCabinet.cs" />
+    <Compile Include="Furniture\AdultTable.cs" />
+    <Compile Include="Furniture\Bed.cs" />
+    <Compile Include="Furniture\Cabinet.cs" />
+    <Compile Include="Furniture\ChildBed.cs" />
+    <Compile Include="Furniture\ChildCabinet.cs" />
+    <Compile Include="Furniture\ChildTable.cs" />
+    <Compile Include="Furniture\Furniture.cs" />
+    <Compile Include="Furniture\IFurniture.cs" />
+    <Compile Include="Furniture\IIsAdult.cs" />
+    <Compile Include="Furniture\IIsChild.cs" />
+    <Compile Include="Furniture\IBed.cs" />
+    <Compile Include="Furniture\ICabinet.cs" />
+    <Compile Include="Furniture\IHasSpecification.cs" />
+    <Compile Include="Furniture\ITable.cs" />
+    <Compile Include="Materials\Material.cs" />
+    <Compile Include="Materials\IMaterial.cs" />
+    <Compile Include="Materials\MaterialColor.cs" />
+    <Compile Include="Materials\MaterialSpecification.cs" />
+    <Compile Include="Materials\MaterialSort.cs" />
+    <Compile Include="Materials\Metal.cs" />
+    <Compile Include="Materials\MetalType.cs" />
+    <Compile Include="Materials\WoodType.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Furniture\Table.cs" />
+    <Compile Include="Materials\Textile.cs" />
+    <Compile Include="Materials\Wood.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="ClassDiagram1.cd" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
