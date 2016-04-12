@@ -1,16 +1,12 @@
 ﻿namespace NewYearsGift.Interfaces
 {
-    #region Usings
-
-    #endregion
-
     /// <summary>
-    /// Interface used for representing the elements of gift (candies, fruits, box and etc.)
+    /// Defines the base fields for different classes (gift, candies, fruits, box and etc.)
     /// </summary>
     public interface IItem
     {
         /// <summary>
-        /// Gets or sets the name of gifts element.
+        /// Gets or sets the name of the gift or his element.
         /// </summary>
         /// <value>
         /// The name.
@@ -26,11 +22,11 @@
         string ProductArticle { get; set; }
 
         /// <summary>
-        /// Gets or sets the weight of gifts element.
+        /// Gets or sets the weight of the gift or his element.
         /// </summary>
         /// <value>
         /// The weight.
         /// </value>
-        double Weight { get; set; }
+        double Weight { get; }
     }
 }

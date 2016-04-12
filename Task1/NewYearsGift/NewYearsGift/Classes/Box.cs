@@ -10,32 +10,24 @@
     /// The class used to describe the gift packing (box).
     /// </summary>
     /// <seealso cref="NewYearsGift.Interfaces.IItem" />
-    public class Box: IItem
+    public class Box : Item
     {
         /// <summary>
-        /// Gets or sets the name of box.
+        /// Initializes a new instance of the <see cref="Box"/> class.
         /// </summary>
-        /// <value>
-        /// The name.
-        /// </value>
-        public string Name { get; set; }
+        /// <param name="weight">The weight.</param>
+        public Box(double weight): base(weight)
+        {
+            Weight = weight;
+        }
 
         /// <summary>
-        /// Gets or sets the boxes article.
+        /// Initializes a new instance of the <see cref="Box"/> class.
         /// </summary>
-        /// <value>
-        /// The product article.
-        /// </value>
-        /// <exception cref="System.NotImplementedException"></exception>
-        public string ProductArticle { get; set; }
+        public Box()
+        {
+            
+        }
 
-        /// <summary>
-        /// Gets or sets the weight of box.
-        /// </summary>
-        /// <value>
-        /// The weight.
-        /// </value>
-        /// <exception cref="System.NotImplementedException"></exception>
-        public double Weight { get; set; }
     }
 }

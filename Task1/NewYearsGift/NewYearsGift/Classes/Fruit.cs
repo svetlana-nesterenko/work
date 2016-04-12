@@ -12,42 +12,31 @@
     /// </summary>
     /// <seealso cref="NewYearsGift.Interfaces.IItem" />
     /// <seealso cref="NewYearsGift.Interfaces.IHasExpirationDate" />
-    public class Fruit: IItem, IHasExpirationDate
+    public class Fruit : Item, IHasExpirationDate
     {
-        /// <summary>
-        /// Gets or sets the name of fruit.
-        /// </summary>
-        /// <value>
-        /// The name.
-        /// </value>
-        /// <exception cref="NotImplementedException"></exception>
-        public string Name { get; set; }
-
-        /// <summary>
-        /// Gets or sets the product article.
-        /// </summary>
-        /// <value>
-        /// The product article.
-        /// </value>
-        /// <exception cref="NotImplementedException"></exception>
-        public string ProductArticle { get; set; }
-
-        /// <summary>
-        /// Gets or sets the weight of fruit.
-        /// </summary>
-        /// <value>
-        /// The weight.
-        /// </value>
-        /// <exception cref="NotImplementedException"></exception>
-        public double Weight { get; set; }
-
         /// <summary>
         /// Gets or sets the expiration date of fruit.
         /// </summary>
         /// <value>
         /// The expiration date.
         /// </value>
-        /// <exception cref="NotImplementedException"></exception>
         public DateTime ExpirationDate { get; set; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Fruit"/> class.
+        /// </summary>
+        /// <param name="weight">The weight.</param>
+        public Fruit(double weight): base(weight)
+        {
+            Weight = weight;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Fruit"/> class.
+        /// </summary>
+        public Fruit()
+        {
+            
+        }
     }
 }

@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{365BC351-00BB-49FB-888E-11C65907C940}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{4BFC4EF3-C061-4464-B656-8E4539C4BCB4}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NewYearsGift</RootNamespace>
-    <AssemblyName>NewYearsGift</AssemblyName>
+    <RootNamespace>Demo</RootNamespace>
+    <AssemblyName>Demo</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,11 +31,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -44,27 +42,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\Box.cs" />
-    <Compile Include="Classes\Candy.cs" />
-    <Compile Include="Classes\CustomList.cs" />
-    <Compile Include="Classes\Gift.cs" />
-    <Compile Include="Classes\Fruit.cs" />
-    <Compile Include="Classes\Item.cs" />
-    <Compile Include="Classes\Toy.cs" />
-    <Compile Include="Enumerations\CandyCategory.cs" />
-    <Compile Include="Enumerations\ToyColor.cs" />
-    <Compile Include="Enumerations\CandyFlavor.cs" />
-    <Compile Include="Interfaces\ICandy.cs" />
-    <Compile Include="Interfaces\IHasExpirationDate.cs" />
-    <Compile Include="Interfaces\IItem.cs" />
-    <Compile Include="Interfaces\IToy.cs" />
+    <Compile Include="GiftBilder.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\NewYearsGift\NewYearsGift.csproj">
+      <Project>{365bc351-00bb-49fb-888e-11c65907c940}</Project>
+      <Name>NewYearsGift</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

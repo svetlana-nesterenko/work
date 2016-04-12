@@ -12,32 +12,8 @@
     /// The class used to describe the nonfood elements of gift which have guarantee period.
     /// </summary>
     /// <seealso cref="NewYearsGift.Interfaces.IItem" />
-    public class Toy: IItem, IToy
+    public class Toy : Item, IItem, IToy
     {
-        /// <summary>
-        /// Gets or sets the name of toy.
-        /// </summary>
-        /// <value>
-        /// The name.
-        /// </value>
-        public string Name { get ; set; }
-
-        /// <summary>
-        /// Gets or sets the product article.
-        /// </summary>
-        /// <value>
-        /// The product article.
-        /// </value>
-        public string ProductArticle { get; set; }
-
-        /// <summary>
-        /// Gets or sets the weight of toy.
-        /// </summary>
-        /// <value>
-        /// The weight.
-        /// </value>
-        public double Weight { get; set; }
-
         /// <summary>
         /// Gets or sets the guarantee period.
         /// </summary>
@@ -53,5 +29,22 @@
         /// The color of the toy.
         /// </value>
         public ToyColor ToyColor { get; set; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Toy"/> class.
+        /// </summary>
+        /// <param name="weight">The weight.</param>
+        public Toy(double weight): base(weight)
+        {
+            Weight = weight;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Toy"/> class.
+        /// </summary>
+        public Toy()
+        {
+            
+        }
     }
 }

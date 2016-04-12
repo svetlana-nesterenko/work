@@ -14,42 +14,14 @@
     /// <seealso cref="NewYearsGift.Interfaces.IItem" />
     /// <seealso cref="NewYearsGift.Interfaces.ICandy" />
     /// <seealso cref="NewYearsGift.Interfaces.IHasExpirationDate" />
-    public class Candy: IItem, ICandy,IHasExpirationDate
+    public class Candy: Item, ICandy,IHasExpirationDate
     {
-        /// <summary>
-        /// Gets or sets the name of candy.
-        /// </summary>
-        /// <value>
-        /// The name.
-        /// </value>
-        /// <exception cref="System.NotImplementedException"></exception>
-        public string Name { get; set; }
-
-        /// <summary>
-        /// Gets or sets the product article.
-        /// </summary>
-        /// <value>
-        /// The product article.
-        /// </value>
-        /// <exception cref="System.NotImplementedException"></exception>
-        public string ProductArticle { get; set; }
-
-        /// <summary>
-        /// Gets or sets the weight of candy.
-        /// </summary>
-        /// <value>
-        /// The weight.
-        /// </value>
-        /// <exception cref="System.NotImplementedException"></exception>
-        public double Weight { get; set; }
-
         /// <summary>
         /// Gets or sets the content of the sugar.
         /// </summary>
         /// <value>
         /// The content of the sugar.
         /// </value>
-        /// <exception cref="System.NotImplementedException"></exception>
         public double SugarContent { get; set; }
 
         /// <summary>
@@ -58,7 +30,6 @@
         /// <value>
         /// The category.
         /// </value>
-        /// <exception cref="System.NotImplementedException"></exception>
         public CandyCategory Category { get; set; }
 
         /// <summary>
@@ -67,7 +38,6 @@
         /// <value>
         /// The flavor of candy.
         /// </value>
-        /// <exception cref="System.NotImplementedException"></exception>
         public CandyFlavor CandyFlavor { get; set; }
 
         /// <summary>
@@ -76,7 +46,23 @@
         /// <value>
         /// The expiration date.
         /// </value>
-        /// <exception cref="System.NotImplementedException"></exception>
         public DateTime ExpirationDate { get; set; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Candy"/> class.
+        /// </summary>
+        /// <param name="weight">The weight.</param>
+        public Candy(double weight) : base(weight)
+        {
+            Weight = weight;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Candy"/> class.
+        /// </summary>
+        public Candy()
+        {
+            
+        }
     }
 }
