@@ -8,7 +8,7 @@
     #endregion
 
     /// <summary>
-    /// Interface used for nonfood elements of gift which have guarantee period.
+    /// Interface used for nonfood elements of gift which have guarantee period and color.
     /// </summary>
     public interface IToy
     {

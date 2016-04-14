@@ -4,6 +4,7 @@
 
     using System;
     using System.Linq;
+    using System.Xml.Serialization;
 
     #endregion
 
@@ -11,9 +12,58 @@
     /// This class represents the New Year's gift which consists from IItems collection (toys, candies and etc.).
     /// </summary>
     [Serializable]
-    public class Gift: Item
+    public class Gift
     {
+        #region Private Fields
+
+        /// <summary>
+        /// This flag indicates that the weight of the gift should be recalculated according to items change.
+        /// </summary>
+        private bool _SomethingChanged;
+
+        /// <summary>
+        /// The weight.
+        /// </summary>
+        private double _Weight;
+
+        #endregion
+
         #region Public Properties
+        /// <summary>
+        /// Gets or sets the name of the gift.
+        /// </summary>
+        /// <value>
+        /// The name.
+        /// </value>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Gets or sets the product article.
+        /// </summary>
+        /// <value>
+        /// The product article.
+        /// </value>
+        public string ProductArticle { get; set; }
+
+        /// <summary>
+        /// Gets the weight of the gift.
+        /// Counts the weight of the gift if any item was added, removed or changed.
+        /// </summary>
+        /// <value>
+        /// The weight.
+        /// </value>
+        [XmlIgnore]
+        public double Weight
+        {
+            get
+            {
+                if (_SomethingChanged)
+                {
+                    _Weight = Items.Select(i => i.Weight).Sum();
+                }
+                return _Weight;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the items (cadies, fruits and etc.).
@@ -26,26 +76,50 @@
         #endregion
 
         #region Constructor
-        
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Gift"/> class.
         /// </summary>
         public Gift()
         {
+            _SomethingChanged = false;
             Items = new CustomList<Item>();
-            Items.OnChanged += ItemsChanged;
+            Items.OnAdded += NewItemWasAdded;
+            Items.OnRemoved += NewItemWasRemoved;
         }
 
         #endregion
 
         #region Private Methods
+
         /// <summary>
-        /// Counts the weight of the gift if any item was added or removed.
+        /// Fires when new item was added.
         /// </summary>
-        private void ItemsChanged()
+        /// <param name="item">The item.</param>
+        private void NewItemWasAdded(Item item)
         {
-            Weight = Items.Select(i => i.Weight).Sum();
+            _SomethingChanged = true;
+            item.OnWeightChanged += ItemWasChanged;
         }
+
+        /// <summary>
+        /// Fires when some item was removed.
+        /// </summary>
+        private void NewItemWasRemoved()
+        {
+            _SomethingChanged = true;
+        }
+
+        /// <summary>
+        /// Fires when some item was changed.
+        /// </summary>
+        private void ItemWasChanged()
+        {
+            _SomethingChanged = true;
+        }
+
         #endregion
+
+
     }
 }

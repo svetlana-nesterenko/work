@@ -15,15 +15,6 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="Box"/> class.
         /// </summary>
-        /// <param name="weight">The weight.</param>
-        public Box(double weight): base(weight)
-        {
-            Weight = weight;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Box"/> class.
-        /// </summary>
         public Box()
         {
             

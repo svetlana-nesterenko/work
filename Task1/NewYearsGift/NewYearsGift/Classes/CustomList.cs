@@ -17,12 +17,38 @@
     [Serializable]
     public class CustomList<T> : List<T>
     {
-        public delegate void CollectionChangedDelegate();
 
+        /// <summary>
+        /// The delegate when adding an element
+        /// </summary>
+        /// <param name="item">The item.</param>
+        public delegate void CollectionAddedDelegate( T item);
+
+        /// <summary>
+        /// Delegate when removing an element.
+        /// </summary>
+        public delegate void CollectionRemovedDelegate();
+
+        /// <summary>
+        /// Gets or sets the delegate which will be called when a new item is added to the collection.
+        /// </summary>
+        /// <value>
+        /// The on added.
+        /// </value>
         [XmlIgnore]
-        public CollectionChangedDelegate OnChanged { get; set; }
+        public CollectionAddedDelegate OnAdded { get; set; }
+
+        /// <summary>
+        /// Gets or sets the delegate when an item is removed from the collection.
+        /// </summary>
+        /// <value>
+        /// The on removed.
+        /// </value>
+        [XmlIgnore]
+        public CollectionRemovedDelegate OnRemoved { get; set; }
 
         #region Overrided Methods
+
         /// <summary>
         /// Adds the specified item.
         /// </summary>
@@ -30,9 +56,9 @@
         public new void Add(T item)
         {
             base.Add(item);
-            if (OnChanged != null)
+            if (OnAdded != null)
             {
-                OnChanged();
+                OnAdded(item);
             }
         }
 
@@ -44,9 +70,9 @@
         public new bool Remove(T item)
         {
             bool result = base.Remove(item);
-            if (OnChanged != null)
+            if (OnRemoved != null)
             {
-                OnChanged();
+                OnRemoved();
             }
             return result;
         }
@@ -58,11 +84,12 @@
         public new void RemoveAt(int index)
         {
             base.RemoveAt(index);
-            if (OnChanged != null)
+            if (OnRemoved != null)
             {
-                OnChanged();
+                OnRemoved();
             }
         }
+
         #endregion
     }
 }

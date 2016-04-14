@@ -25,15 +25,6 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="Fruit"/> class.
         /// </summary>
-        /// <param name="weight">The weight.</param>
-        public Fruit(double weight): base(weight)
-        {
-            Weight = weight;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Fruit"/> class.
-        /// </summary>
         public Fruit()
         {
             

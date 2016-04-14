@@ -51,15 +51,6 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="Candy"/> class.
         /// </summary>
-        /// <param name="weight">The weight.</param>
-        public Candy(double weight) : base(weight)
-        {
-            Weight = weight;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Candy"/> class.
-        /// </summary>
         public Candy()
         {
             
