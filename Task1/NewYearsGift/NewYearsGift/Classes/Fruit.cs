@@ -22,12 +22,59 @@
         /// </value>
         public DateTime ExpirationDate { get; set; }
 
+        #region Constructor
         /// <summary>
         /// Initializes a new instance of the <see cref="Fruit"/> class.
         /// </summary>
         public Fruit()
         {
+
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Fruit"/> class.
+        /// </summary>
+        public Fruit(string name)
+            : base(name)
+        {
             
         }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Fruit"/> class.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="productArticle">The product article.</param>
+        public Fruit(string name, string productArticle)
+            : base(name, productArticle)
+        {
+
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Fruit"/> class.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="productArticle">The product article.</param>
+        /// <param name="weight">The weight.</param>
+        public Fruit(string name, string productArticle, double weight)
+            : base(name, productArticle, weight)
+        {
+
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Fruit"/> class.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="productArticle">The product article.</param>
+        /// <param name="weight">The weight.</param>
+        /// <param name="expirationDate">The expiration date.</param>
+        public Fruit(string name, string productArticle, double weight, DateTime expirationDate)
+            : base(name, productArticle, weight)
+        {
+            this.ExpirationDate = expirationDate;
+        }
+        #endregion
     }
 }

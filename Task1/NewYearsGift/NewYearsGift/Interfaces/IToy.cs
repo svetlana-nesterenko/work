@@ -13,20 +13,20 @@
     public interface IToy
     {
         /// <summary>
-        /// Gets or sets the guarantee period.
+        /// Gets the guarantee period.
         /// </summary>
         /// <value>
         /// The guarantee period.
         /// </value>
-        DateTime GuaranteePeriod { get; set; }
+        DateTime GuaranteePeriod { get; }
 
 
         /// <summary>
-        /// Gets or sets the color of the toys from enumeration ToyColor.
+        /// Gets the color of the toys from enumeration ToyColor.
         /// </summary>
         /// <value>
         /// The color of the toys.
         /// </value>
-        ToyColor ToyColor { get; set; }
+        ToyColor ToyColor { get; }
     }
 }

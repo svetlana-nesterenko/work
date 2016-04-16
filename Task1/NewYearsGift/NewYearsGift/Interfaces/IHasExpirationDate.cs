@@ -12,11 +12,11 @@
     interface IHasExpirationDate
     {
         /// <summary>
-        /// Gets or sets the expiration date.
+        /// Gets the expiration date.
         /// </summary>
         /// <value>
         /// The expiration date.
         /// </value>
-        DateTime ExpirationDate { get; set; }
+        DateTime ExpirationDate { get; }
     }
 }

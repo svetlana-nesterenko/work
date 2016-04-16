@@ -14,8 +14,105 @@
     /// <seealso cref="NewYearsGift.Interfaces.IItem" />
     /// <seealso cref="NewYearsGift.Interfaces.ICandy" />
     /// <seealso cref="NewYearsGift.Interfaces.IHasExpirationDate" />
-    public class Candy: Item, ICandy,IHasExpirationDate
+    public class Candy : Item, ICandy, IHasExpirationDate, IHasSugar
     {
+        #region Constructor
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Candy"/> class.
+        /// </summary>
+        public Candy()
+        {
+
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Candy"/> class.
+        /// </summary>
+        /// <param name="name"></param>
+        public Candy(string name)
+            : base(name)
+        {
+
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Candy"/> class.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="productArticle">The product article.</param>
+        public Candy(string name, string productArticle)
+            : base(name, productArticle)
+        {
+
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Candy"/> class.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="productArticle">The product article.</param>
+        /// <param name="weight">The weight.</param>
+        public Candy(string name, string productArticle, double weight)
+            : base(name, productArticle, weight)
+        {
+
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Candy"/> class.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="productArticle">The product article.</param>
+        /// <param name="weight">The weight.</param>
+        public Candy(string name, string productArticle, double weight, CandyFlavor candyFlavor)
+            : base(name, productArticle, weight)
+        {
+            this.CandyFlavor = candyFlavor;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Candy"/> class.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="productArticle">The product article.</param>
+        /// <param name="weight">The weight.</param>
+        public Candy(string name, string productArticle, double weight, CandyFlavor candyFlavor, CandyCategory category)
+            : base(name, productArticle, weight)
+        {
+            this.CandyFlavor = candyFlavor;
+            this.Category = category;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Candy"/> class.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="productArticle">The product article.</param>
+        /// <param name="weight">The weight.</param>
+        public Candy(string name, string productArticle, double weight, CandyFlavor candyFlavor, CandyCategory category, DateTime expirationDate)
+            : base(name, productArticle, weight)
+        {
+            this.CandyFlavor = candyFlavor;
+            this.Category = category;
+            this.ExpirationDate = expirationDate;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Candy"/> class.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="productArticle">The product article.</param>
+        /// <param name="weight">The weight.</param>
+        public Candy(string name, string productArticle, double weight, CandyFlavor candyFlavor, CandyCategory category, DateTime expirationDate, double sugar)
+            : base(name, productArticle, weight)
+        {
+            this.CandyFlavor = candyFlavor;
+            this.Category = category;
+            this.ExpirationDate = expirationDate;
+            this.SugarContent = sugar;
+        }
+        #endregion
+
         /// <summary>
         /// Gets or sets the content of the sugar.
         /// </summary>
@@ -47,13 +144,5 @@
         /// The expiration date.
         /// </value>
         public DateTime ExpirationDate { get; set; }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Candy"/> class.
-        /// </summary>
-        public Candy()
-        {
-            
-        }
     }
 }

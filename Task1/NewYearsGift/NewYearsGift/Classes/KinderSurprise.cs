@@ -12,7 +12,7 @@
     /// The class used to describe the nonfood elements of gift which have guarantee period.
     /// </summary>
     /// <seealso cref="NewYearsGift.Interfaces.IItem" />
-    public class Toy : Item, IToy
+    public class KinderSurprise : Item, IToy, IHasSugar
     {
         /// <summary>
         /// Gets or sets the guarantee period.
@@ -30,75 +30,101 @@
         /// </value>
         public ToyColor ToyColor { get; set; }
 
-        #region Constructor
         /// <summary>
-        /// Initializes a new instance of the <see cref="Toy"/> class.
+        /// Gets or sets the content of the sugar.
         /// </summary>
-        public Toy()
-            : base()
+        /// <value>
+        /// The content of the sugar.
+        /// </value>
+        public double SugarContent { get; set; }
+
+        #region Constructor
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="KinderSurprise"/> class.
+        /// </summary>
+        public KinderSurprise()
         {
 
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Toy"/> class.
+        /// Initializes a new instance of the <see cref="KinderSurprise"/> class.
         /// </summary>
-        public Toy(string name)
+        public KinderSurprise(string name)
             : base(name)
         {
-            
+
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Toy"/> class.
+        /// Initializes a new instance of the <see cref="KinderSurprise"/> class.
         /// </summary>
         /// <param name="name">The name.</param>
         /// <param name="productArticle">The product article.</param>
-        public Toy(string name, string productArticle)
+        public KinderSurprise(string name, string productArticle)
             : base(name, productArticle)
         {
 
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Toy"/> class.
+        /// Initializes a new instance of the <see cref="KinderSurprise"/> class.
         /// </summary>
         /// <param name="name">The name.</param>
         /// <param name="productArticle">The product article.</param>
         /// <param name="weight">The weight.</param>
-        public Toy(string name, string productArticle, double weight)
+        public KinderSurprise(string name, string productArticle, double weight)
             : base(name, productArticle, weight)
         {
 
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Toy"/> class.
+        /// Initializes a new instance of the <see cref="KinderSurprise"/> class.
         /// </summary>
         /// <param name="name">The name.</param>
         /// <param name="productArticle">The product article.</param>
         /// <param name="weight">The weight.</param>
         /// <param name="guaranteePeriod">The guarantee period.</param>
-        public Toy(string name, string productArticle, double weight, DateTime guaranteePeriod)
+        public KinderSurprise(string name, string productArticle, double weight, DateTime guaranteePeriod)
             : base(name, productArticle, weight)
         {
             this.GuaranteePeriod = guaranteePeriod;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Toy"/> class.
+        /// Initializes a new instance of the <see cref="KinderSurprise"/> class.
         /// </summary>
         /// <param name="name">The name.</param>
         /// <param name="productArticle">The product article.</param>
         /// <param name="weight">The weight.</param>
         /// <param name="guaranteePeriod">The guarantee period.</param>
-        /// <param name="color">The color.</param>
-        public Toy(string name, string productArticle, double weight, DateTime guaranteePeriod, ToyColor color)
+        /// <param name="toyColor">Color of the toy.</param>
+        public KinderSurprise(string name, string productArticle, double weight, DateTime guaranteePeriod, ToyColor toyColor)
             : base(name, productArticle, weight)
         {
             this.GuaranteePeriod = guaranteePeriod;
-            this.ToyColor = color;
+            this.ToyColor = toyColor;
         }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="KinderSurprise"/> class.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="productArticle">The product article.</param>
+        /// <param name="weight">The weight.</param>
+        /// <param name="guaranteePeriod">The guarantee period.</param>
+        /// <param name="toyColor">Color of the toy.</param>
+        /// <param name="sugarContent">Content of the sugar.</param>
+        public KinderSurprise(string name, string productArticle, double weight, DateTime guaranteePeriod, ToyColor toyColor, double sugarContent)
+            : base(name, productArticle, weight)
+        {
+            this.GuaranteePeriod = guaranteePeriod;
+            this.ToyColor = toyColor;
+            this.SugarContent = sugarContent;
+        }
+
         #endregion
     }
 }

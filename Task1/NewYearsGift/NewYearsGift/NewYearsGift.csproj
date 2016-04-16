@@ -46,23 +46,24 @@
   <ItemGroup>
     <Compile Include="Classes\Box.cs" />
     <Compile Include="Classes\Candy.cs" />
-    <Compile Include="Classes\CustomList.cs" />
-    <Compile Include="Classes\Gift.cs" />
     <Compile Include="Classes\Fruit.cs" />
     <Compile Include="Classes\Item.cs" />
+    <Compile Include="Classes\KinderSurprise.cs" />
     <Compile Include="Classes\Toy.cs" />
     <Compile Include="Enumerations\CandyCategory.cs" />
     <Compile Include="Enumerations\ToyColor.cs" />
     <Compile Include="Enumerations\CandyFlavor.cs" />
+    <Compile Include="Classes\Gift.cs" />
+    <Compile Include="Classes\ItemEnumerator.cs" />
     <Compile Include="Interfaces\ICandy.cs" />
     <Compile Include="Interfaces\IHasExpirationDate.cs" />
+    <Compile Include="Interfaces\IHasSugar.cs" />
     <Compile Include="Interfaces\IItem.cs" />
     <Compile Include="Interfaces\IToy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

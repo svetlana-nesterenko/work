@@ -10,27 +10,27 @@
     public interface ICandy
     {
         /// <summary>
-        /// Gets or sets the content of the sugar.
+        /// Gets the content of the sugar.
         /// </summary>
         /// <value>
         /// The content of the sugar.
         /// </value>
-        double SugarContent { get; set; }
+        //double SugarContent { get; }
         
         /// <summary>
-        /// Gets or sets the category of sweets from enumeration CandyCategory.
+        /// Gets the category of sweets from enumeration CandyCategory.
         /// </summary>
         /// <value>
         /// The category.
         /// </value>
-        CandyCategory Category { get; set; }
+        CandyCategory Category { get; }
         
         /// <summary>
-        /// Gets or sets the flavor of sweets from enumeration CandyFlavor.
+        /// Gets the flavor of sweets from enumeration CandyFlavor.
         /// </summary>
         /// <value>
         /// The flavor of candy.
         /// </value>
-        CandyFlavor CandyFlavor { get; set; }
+        CandyFlavor CandyFlavor { get; }
     }
 }

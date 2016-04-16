@@ -2,7 +2,7 @@
 {
     #region Usings
 
-    using System.Xml.Serialization;
+    using System;
     using NewYearsGift.Interfaces;
 
     #endregion
@@ -14,34 +14,49 @@
     /// <seealso cref="NewYearsGift.Interfaces.IItem" />
     public abstract class Item : IItem
     {
-        /// <summary>
-        /// The weight
-        /// </summary>
-        private double _Weight;
-
-
-        /// <summary>
-        /// The delegate when the weight is changed.
-        /// </summary>
-        public delegate void WeightChanged();
-
-
-        /// <summary>
-        /// Gets or sets the delegate which will be called on every weight changing.
-        /// </summary>
-        /// <value>
-        /// The on weight changed.
-        /// </value>
-        [XmlIgnore]
-        public WeightChanged OnWeightChanged { get; set; }
-        
+        #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="Item"/> class.
         /// </summary>
-        public Item()
+        protected Item()
         {
-            
+
         }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Item"/> class.
+        /// </summary>
+        protected Item(string name)
+        {
+            this.Name = name;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Item"/> class.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="productArticle">The product article.</param>
+        protected Item(string name, string productArticle)
+        {
+            this.Name = name;
+            this.ProductArticle = productArticle;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Item"/> class.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="productArticle">The product article.</param>
+        /// <param name="weight">The weight.</param>
+        protected Item(string name, string productArticle, double weight)
+        {
+            this.Name = name;
+            this.ProductArticle = productArticle;
+            this.Weight = weight;
+        }
+
+        #endregion
+
 
         /// <summary>
         /// Gets or sets the name of the gifts element (candy, fruit, box and etc.).
@@ -66,20 +81,15 @@
         /// <value>
         /// The weight.
         /// </value>
-        public double Weight
+        public double Weight { get; set; }
+
+        /// <summary>
+        /// Gets the information.
+        /// </summary>
+        /// <returns></returns>
+        public string GetInfo()
         {
-            get { return this._Weight; }
-            set
-            {
-                if (value != this._Weight)
-                {
-                    this._Weight = value;
-                    if (OnWeightChanged != null)
-                    {
-                        OnWeightChanged();
-                    }
-                }
-            }
+            return String.Format("{0} {1} вес - {2}", ProductArticle, Name, Weight);
         }
     }
 }

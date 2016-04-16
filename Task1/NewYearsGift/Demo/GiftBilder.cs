@@ -47,15 +47,17 @@
         /// </summary>
         protected void AddItems()
         {
-            _gift.Items.Add(new Candy() { CandyFlavor = CandyFlavor.Cherry, Category = CandyCategory.FruitJelly, ExpirationDate = new DateTime(2016, 10, 1), Name = "Веселые ребята", ProductArticle = "YR47583758", SugarContent = 100.2, Weight = 15});
-            _gift.Items.Add(new Candy() { CandyFlavor = CandyFlavor.DarkChocolate, Category = CandyCategory.Chocolate, ExpirationDate = new DateTime(2016, 08, 15), Name = "Коммунарка", ProductArticle = "KP65454874", SugarContent = 156.5, Weight = 100});
-            _gift.Items.Add(new Candy() { CandyFlavor = CandyFlavor.Stroberry, Category = CandyCategory.Biscuit, ExpirationDate = new DateTime(2016, 09, 21), Name = "Юбилейный", ProductArticle = "ET12454854", SugarContent = 124, Weight = 36.3});
-            _gift.Items.Add(new Candy() { CandyFlavor = CandyFlavor.Orange, Category = CandyCategory.Caramel, ExpirationDate = new DateTime(2016, 06, 30), Name = "Барбарис", ProductArticle = "XV15748787", SugarContent = 239.6, Weight = 18});
-            _gift.Items.Add(new Candy() { CandyFlavor = CandyFlavor.MilkChocolate, Category = CandyCategory.Chocolate, ExpirationDate = new DateTime(2016, 12, 16), Name = "Спартак", ProductArticle = "LH25787878", SugarContent = 202.3, Weight = 100});
-            _gift.Items.Add(new Candy() { CandyFlavor = CandyFlavor.Stroberry, Category = CandyCategory.Marshmallow, ExpirationDate = new DateTime(2016, 07, 5), Name = "Чародейка", ProductArticle = "ND41545448", SugarContent = 299.9, Weight = 20.9});
-            _gift.Items.Add(new Fruit() { ExpirationDate = new DateTime(2016, 06, 15), Name = "Мандарин", ProductArticle = "DH12154542", Weight = 35.1});
-            _gift.Items.Add(new Toy() { GuaranteePeriod = new DateTime(2019, 12, 31), Name = "Медвежонок Винни", ProductArticle = "JE54544848", ToyColor = ToyColor.Blue, Weight = 260});
-            _gift.Items.Add(new Box() { Name = "Теремок", ProductArticle = "ZT45485748", Weight = 12.5});
+            _gift.Add(new Candy("Веселые ребята", "YR47583758", 15, CandyFlavor.Cherry, CandyCategory.FruitJelly, new DateTime(2016, 10, 1), 120));
+            _gift.Add(new Candy("Коммунарка", "KP65454874", 100, CandyFlavor.DarkChocolate, CandyCategory.Chocolate, new DateTime(2016, 08, 15), 156.5));
+            _gift.Add(new Candy("Юбилейный", "ET12454854", 36.3,CandyFlavor.Stroberry, CandyCategory.Biscuit,new DateTime(2016, 09, 21), 124));
+            _gift.Add(new Candy("Барбарис", "XV15748787", 18, CandyFlavor.Orange, CandyCategory.Caramel, new DateTime(2016, 06, 30),239.6));
+            _gift.Add(new Candy("Спартак", "LH25787878", 100, CandyFlavor.MilkChocolate, CandyCategory.Chocolate, new DateTime(2016, 12, 16),202.3));
+            _gift.Add(new Candy("Чародейка", "ND41545448", 20.9, CandyFlavor.Stroberry, CandyCategory.Marshmallow, new DateTime(2016, 07, 5), 299.9));
+            _gift.Add(new Fruit("Мандарин", "DH12154542", 35.1,new DateTime(2016, 06, 15)));
+            _gift.Add(new Toy("Медвежонок Винни", "JE54544848", 260, new DateTime(2019, 12, 31), ToyColor.Blue));
+            _gift.Add(new Toy("Машинка", "WT14545454",250,new DateTime(2019,12,31),ToyColor.Welloy));
+            _gift.Add(new KinderSurprise("Смешарики", "KL454574878", 200, new DateTime(2016,10,01),ToyColor.Pink, 360));
+            _gift.Add(new Box("Теремок", "ZT45485748", 12.5));
         }
     }
 }
