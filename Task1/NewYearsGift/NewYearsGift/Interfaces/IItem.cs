@@ -14,6 +14,14 @@
         string Name { get; }
 
         /// <summary>
+        /// Gets the full name.
+        /// </summary>
+        /// <value>
+        /// The full name.
+        /// </value>
+        string FullName { get; }
+
+        /// <summary>
         /// Gets the product article (candy, fruit, box and etc.).
         /// </summary>
         /// <value>

@@ -22,13 +22,13 @@
         /// The _items
         /// </summary>
         private List<IItem> _items;
+
         /// <summary>
         /// The _weight
         /// </summary>
         private double _weight;
 
         #endregion
-
 
         #region Public Properties
         /// <summary>
@@ -60,6 +60,8 @@
 
         #endregion
 
+        #region Constructor
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Gift"/> class.
         /// </summary>
@@ -68,6 +70,9 @@
             _items = new List<IItem>();
         }
 
+        #endregion
+
+        #region Public Methods
         /// <summary>
         /// Sorts the name of the items by.
         /// </summary>
@@ -77,6 +82,12 @@
             return _items.OrderBy(i => i.Name).ToArray();
         }
 
+        /// <summary>
+        /// Finds items with specified range of sugar content.
+        /// </summary>
+        /// <param name="min">The minimum.</param>
+        /// <param name="max">The maximum.</param>
+        /// <returns></returns>
         public IEnumerable<IItem> FindBySugarContent(double min, double max)
         {
             return _items.Where(i => i is IHasSugar).Cast<IHasSugar>().Where(c => c.SugarContent >= min && c.SugarContent <= max).Cast<IItem>().ToArray();
@@ -89,6 +100,10 @@
         {
             _weight = _items.Select(i => i.Weight).Sum();
         }
+
+        #endregion
+
+        #region Implementation of ICollection
 
         /// <summary>
         /// Gets or sets the <see cref="IItem"/> at the specified index.
@@ -108,8 +123,14 @@
         /// Adds an item to the <see cref="T:System.Collections.Generic.ICollection`1" />.
         /// </summary>
         /// <param name="item">The object to add to the <see cref="T:System.Collections.Generic.ICollection`1" />.</param>
+        /// <exception cref="System.Exception">Reached the maximum weight of the current gift (2000g).</exception>
         public void Add(IItem item)
         {
+            this.RecalculateWeight();
+            if (this.Weight > 2000)
+            {
+                throw new Exception("Reached the maximum weight of the current gift (2000g).");
+            }
             _items.Add(item);
         }
 
@@ -226,5 +247,7 @@
         {
             return new ItemEnumerator(this);
         }
+
+        #endregion
     }
 }

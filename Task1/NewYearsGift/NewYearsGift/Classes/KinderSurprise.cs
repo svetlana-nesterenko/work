@@ -1,4 +1,6 @@
-﻿namespace NewYearsGift.Classes
+﻿using System.Text;
+
+namespace NewYearsGift.Classes
 {
     #region Usings
 
@@ -9,11 +11,24 @@
     #endregion
 
     /// <summary>
-    /// The class used to describe the nonfood elements of gift which have guarantee period.
+    /// The class used to describe the elements of gift which combine candy and toy. 
     /// </summary>
     /// <seealso cref="NewYearsGift.Interfaces.IItem" />
     public class KinderSurprise : Item, IToy, IHasSugar
     {
+        #region Public Properties
+
+        /// <summary>
+        /// Gets the full name.
+        /// </summary>
+        /// <value>
+        /// The full name.
+        /// </value>
+        public override string FullName
+        {
+            get { return String.Format("Kinder surprise '{0}'", base.Name); }
+        }
+
         /// <summary>
         /// Gets or sets the guarantee period.
         /// </summary>
@@ -37,6 +52,8 @@
         /// The content of the sugar.
         /// </value>
         public double SugarContent { get; set; }
+
+        #endregion
 
         #region Constructor
 
@@ -123,6 +140,24 @@
             this.GuaranteePeriod = guaranteePeriod;
             this.ToyColor = toyColor;
             this.SugarContent = sugarContent;
+        }
+
+        #endregion
+
+        #region Overridden methods
+
+        /// <summary>
+        /// Gets the information.
+        /// </summary>
+        /// <returns></returns>
+        public override string GetInfo()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append(base.GetInfo());
+            sb.AppendLine(String.Format("Guarantee period: {0:yyyy-MM-dd}", GuaranteePeriod));
+            sb.AppendLine(String.Format("Toy color: {0}", ToyColor));
+            sb.AppendLine(String.Format("Sugar: {0}", SugarContent));
+            return sb.ToString();
         }
 
         #endregion

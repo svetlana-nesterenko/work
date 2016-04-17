@@ -38,9 +38,16 @@
 
         public bool MoveNext()
         {
-            _curIndex++;
-            _curItem = _collection[_curIndex];
-            return (_curIndex < _collection.Count);
+            if (++_curIndex >= _collection.Count)
+            {
+                return false;
+            }
+            else
+            {
+
+                _curItem = _collection[_curIndex];
+            }
+            return true;
         }
 
         public void Reset()

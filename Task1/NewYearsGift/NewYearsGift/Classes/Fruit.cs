@@ -3,6 +3,7 @@
     #region Usings
 
     using System;
+    using System.Text;
     using NewYearsGift.Interfaces;
 
     #endregion
@@ -14,6 +15,19 @@
     /// <seealso cref="NewYearsGift.Interfaces.IHasExpirationDate" />
     public class Fruit : Item, IHasExpirationDate
     {
+        #region Public Properties
+
+        /// <summary>
+        /// Gets the full name.
+        /// </summary>
+        /// <value>
+        /// The full name.
+        /// </value>
+        public override string FullName
+        {
+            get { return String.Format("Fruit '{0}'", base.Name); }
+        }
+
         /// <summary>
         /// Gets or sets the expiration date of fruit.
         /// </summary>
@@ -21,6 +35,8 @@
         /// The expiration date.
         /// </value>
         public DateTime ExpirationDate { get; set; }
+
+        #endregion
 
         #region Constructor
         /// <summary>
@@ -75,6 +91,22 @@
         {
             this.ExpirationDate = expirationDate;
         }
+        #endregion
+
+        #region Overridden methods
+
+        /// <summary>
+        /// Gets the information.
+        /// </summary>
+        /// <returns></returns>
+        public override string GetInfo()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append(base.GetInfo());
+            sb.AppendLine(String.Format("Expiration Date: {0:yyyy-MM-dd}", ExpirationDate));
+            return sb.ToString();
+        }
+
         #endregion
     }
 }

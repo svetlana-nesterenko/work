@@ -3,6 +3,7 @@
     #region Usings
 
     using System;
+    using System.Text;
     using NewYearsGift.Interfaces;
 
     #endregion
@@ -57,6 +58,7 @@
 
         #endregion
 
+        #region Public Properties
 
         /// <summary>
         /// Gets or sets the name of the gifts element (candy, fruit, box and etc.).
@@ -66,6 +68,16 @@
         /// </value>
         public string Name { get; set; }
 
+        /// <summary>
+        /// Gets the full name.
+        /// </summary>
+        /// <value>
+        /// The full name.
+        /// </value>
+        public virtual string FullName
+        {
+            get { return this.Name; }
+        }
 
         /// <summary>
         /// Gets or sets the product article (candy, fruit, box and etc.).
@@ -83,13 +95,19 @@
         /// </value>
         public double Weight { get; set; }
 
+        #endregion
+
         /// <summary>
         /// Gets the information.
         /// </summary>
         /// <returns></returns>
-        public string GetInfo()
+        public virtual string GetInfo()
         {
-            return String.Format("{0} {1} вес - {2}", ProductArticle, Name, Weight);
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine(String.Format("Name: {0}", this.FullName));
+            sb.AppendLine(String.Format("ProductArticle: {0}", this.ProductArticle));
+            sb.AppendLine(String.Format("Weight: {0}", this.Weight));
+            return sb.ToString();
         }
     }
 }

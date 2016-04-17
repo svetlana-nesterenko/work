@@ -3,6 +3,7 @@
     #region Usings
 
     using System;
+    using System.Text;
     using NewYearsGift.Enumerations;
     using NewYearsGift.Interfaces;
 
@@ -14,6 +15,19 @@
     /// <seealso cref="NewYearsGift.Interfaces.IItem" />
     public class Toy : Item, IToy
     {
+        #region Public Properties
+
+        /// <summary>
+        /// Gets the full name.
+        /// </summary>
+        /// <value>
+        /// The full name.
+        /// </value>
+        public override string FullName
+        {
+            get { return String.Format("Child toy '{0}'", base.Name); }
+        }
+
         /// <summary>
         /// Gets or sets the guarantee period.
         /// </summary>
@@ -29,6 +43,8 @@
         /// The color of the toy.
         /// </value>
         public ToyColor ToyColor { get; set; }
+
+        #endregion
 
         #region Constructor
         /// <summary>
@@ -99,6 +115,23 @@
             this.GuaranteePeriod = guaranteePeriod;
             this.ToyColor = color;
         }
+        #endregion
+
+        #region Overridden methods
+
+        /// <summary>
+        /// Gets the information.
+        /// </summary>
+        /// <returns></returns>
+        public override string GetInfo()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append(base.GetInfo());
+            sb.AppendLine(String.Format("Guarantee period: {0:yyyy-MM-dd}", GuaranteePeriod));
+            sb.AppendLine(String.Format("Toy color: {0}", ToyColor));
+            return sb.ToString();
+        }
+
         #endregion
     }
 }
