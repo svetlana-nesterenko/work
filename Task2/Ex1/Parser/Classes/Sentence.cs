@@ -17,6 +17,11 @@ namespace Parser.Classes
             _items = new List<ISentenceItem>();
         }
 
+        public List<ISentenceItem> Items
+        {
+            get { return _items; }
+        }
+
         #region Implementation of ICollection
         public ISentenceItem this[int index]
         {
@@ -99,5 +104,19 @@ namespace Parser.Classes
             return new SentenceItemEnumerator(this);
         }
         #endregion
+
+        public string CreateSentance()
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (var item in _items)
+            {
+                if (item is IWord && sb.Length != 0) 
+                {
+                    sb.Append(" ");
+                }
+                sb.Append(item.Chars);
+            }
+            return sb.ToString();
+        }
     }
 }

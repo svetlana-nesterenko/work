@@ -18,6 +18,14 @@ namespace Ex1
             string content = File.ReadAllText("test.txt");
             TextParser parser = new TextParser();
             Text text = parser.Parse(content);
+
+            var a = text.ToArray().Select(p => p.Items).Select(p => p.ToArray()).SelectMany(p => p.ToArray()).OrderBy(p => { return p.ToArray().Count(f => f is Word); });
+            foreach (var sen in a)
+            {
+                Console.WriteLine(sen.CreateSentance());
+            }
+
+            Console.ReadKey();
         }
     }
 }

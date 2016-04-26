@@ -8,5 +8,6 @@ namespace Parser.Interfaces
 {
     public interface ISentence: ICollection<ISentenceItem>
     {
+        string CreateSentance();
     }
 }

@@ -10,5 +10,7 @@ namespace Parser.Interfaces
     {
         double Indent { get; }
         double LineSpacing { get; }
+
+        List<ISentence> Items { get; }
     }
 }

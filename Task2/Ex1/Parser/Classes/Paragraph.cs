@@ -20,6 +20,11 @@ namespace Parser.Classes
             _items = new List<ISentence>();
         }
 
+        public List<ISentence> Items
+        {
+            get { return _items; }
+        }
+
         #region Implementation of ICollection
         public ISentence this[int index]
         {
