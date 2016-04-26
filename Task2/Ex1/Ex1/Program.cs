@@ -6,6 +6,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Parser;
+using Parser.Classes;
+using Parser.Interfaces;
 
 namespace Ex1
 {
@@ -15,7 +17,7 @@ namespace Ex1
         {
             string content = File.ReadAllText("test.txt");
             TextParser parser = new TextParser();
-            parser.Parse(content);
+            Text text = parser.Parse(content);
         }
     }
 }

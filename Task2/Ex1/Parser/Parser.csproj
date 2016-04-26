@@ -39,11 +39,39 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TextParser.cs" />
+    <Compile Include="Classes\DeclarativeSentence.cs" />
+    <Compile Include="Classes\Formula.cs" />
+    <Compile Include="Classes\ImperativeSentence.cs" />
+    <Compile Include="Classes\InterrogativeSentence.cs" />
+    <Compile Include="Classes\LetterSymbol.cs" />
+    <Compile Include="Classes\OtherSentence.cs" />
+    <Compile Include="Classes\ParagraphEnumerator.cs" />
+    <Compile Include="Classes\MathematicalSignSymbol.cs" />
+    <Compile Include="Classes\NumericWord.cs" />
+    <Compile Include="Classes\PunctuationSignSymbol.cs" />
+    <Compile Include="Classes\SentenceEnumerator.cs" />
+    <Compile Include="Classes\SentenceItemEnumerator.cs" />
+    <Compile Include="Classes\PunctuationSign.cs" />
+    <Compile Include="Classes\SentenceSeparator.cs" />
+    <Compile Include="Classes\SignSymbol.cs" />
+    <Compile Include="Classes\NumericSymbol.cs" />
+    <Compile Include="Enumerations\LetterTypes.cs" />
+    <Compile Include="Classes\Paragraph.cs" />
+    <Compile Include="Classes\ParserHelper.cs" />
+    <Compile Include="Classes\Sentence.cs" />
+    <Compile Include="Classes\Symbol.cs" />
+    <Compile Include="Classes\Text.cs" />
+    <Compile Include="Classes\TextParser.cs" />
+    <Compile Include="Classes\Word.cs" />
+    <Compile Include="Interfaces\IParagraph.cs" />
+    <Compile Include="Interfaces\IPunctuation.cs" />
+    <Compile Include="Interfaces\ISentence.cs" />
+    <Compile Include="Interfaces\ISentenceItem.cs" />
+    <Compile Include="Interfaces\IWord.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Classes\" />
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
