@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace Parser.Classes
 {
-    public class OtherSentence: Sentence
+    public class OtherSentence : Sentence
     {
+        public void SetLastSign(PunctuationSign item)
+        {
+            base._lastSign = item;
+        }
     }
 }

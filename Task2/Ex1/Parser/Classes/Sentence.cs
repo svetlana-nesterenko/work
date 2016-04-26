@@ -11,6 +11,7 @@ namespace Parser.Classes
     public abstract class Sentence : ISentence, ICollection<ISentenceItem>
     {
         private List<ISentenceItem> _items;
+        protected PunctuationSign _lastSign { get; set; }
 
         public Sentence()
         {
@@ -116,7 +117,16 @@ namespace Parser.Classes
                 }
                 sb.Append(item.Chars);
             }
+            if (_lastSign != null)
+            {
+                sb.Append(_lastSign.Chars); 
+            }
             return sb.ToString();
+        }
+
+        public PunctuationSign GetLastSign()
+        {
+            return _lastSign;
         }
     }
 }

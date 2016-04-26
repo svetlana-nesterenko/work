@@ -8,5 +8,9 @@ namespace Parser.Classes
 {
     public class ImperativeSentence: Sentence
     {
+        public ImperativeSentence() : base()
+        {
+            base._lastSign = new PunctuationSign("!");
+        }
     }
 }

@@ -8,5 +8,9 @@ namespace Parser.Classes
 {
     public class DeclarativeSentence: Sentence
     {
+        public DeclarativeSentence(): base()
+        {
+            base._lastSign = new PunctuationSign(".");
+        }
     }
 }

@@ -62,12 +62,29 @@ namespace Parser
                                     {
                                         ISentenceItem item = new Word(word);
                                         sentenceObject.Add(item);
+                                        if (sentenceObject is OtherSentence)
+                                        {
+                                            ((OtherSentence)sentenceObject).SetLastSign(null);
+                                        }
                                     }
 
                                     if (!String.IsNullOrEmpty(punctuation))
                                     {
                                         ISentenceItem item = new PunctuationSign(punctuation);
                                         sentenceObject.Add(item);
+                                        if (sentenceObject is OtherSentence)
+                                        {
+                                            ((OtherSentence) sentenceObject).SetLastSign((PunctuationSign)item);
+                                        }
+                                    }
+                                }
+                                var lastWord = sentenceObject.Items.LastOrDefault(i => i is IWord);
+                                if (lastWord != null)
+                                {
+                                    int indexLastWord = sentenceObject.Items.IndexOf(lastWord);
+                                    for (int i = indexLastWord+1; i < sentenceObject.Items.Count; i++)
+                                    {
+                                        sentenceObject.Remove(sentenceObject.Items[i]);
                                     }
                                 }
                             }

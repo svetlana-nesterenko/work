@@ -8,5 +8,9 @@ namespace Parser.Classes
 {
     public class InterrogativeSentence: Sentence
     {
+        public InterrogativeSentence(): base()
+        {
+            base._lastSign = new PunctuationSign("?");
+        }
     }
 }
