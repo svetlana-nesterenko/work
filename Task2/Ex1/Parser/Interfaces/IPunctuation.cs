@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Parser.Classes;
-
-namespace Parser.Interfaces
+﻿namespace Parser.Interfaces
 {
+    /// <summary>
+    /// Interface used for the punctuation part of sentence.
+    /// </summary>
+    /// <seealso cref="Parser.Interfaces.ISentenceItem" />
     public interface IPunctuation : ISentenceItem
     {
     }

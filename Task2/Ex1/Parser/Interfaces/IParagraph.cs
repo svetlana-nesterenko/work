@@ -1,16 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Parser.Interfaces
+﻿namespace Parser.Interfaces
 {
+    #region Usings
+
+    using System.Collections.Generic;
+    
+    #endregion
+
+    /// <summary>
+    /// Interface used for paragraphs of the text.
+    /// </summary>
+    /// <seealso cref="System.Collections.Generic.ICollection{Parser.Interfaces.ISentence}" />
     public interface IParagraph : ICollection<ISentence>
     {
-        double Indent { get; }
-        double LineSpacing { get; }
-
+        /// <summary>
+        /// Gets the items.
+        /// </summary>
+        /// <value>
+        /// The items.
+        /// </value>
         List<ISentence> Items { get; }
     }
 }

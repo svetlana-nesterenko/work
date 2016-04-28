@@ -1,14 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Parser.Classes
+﻿namespace Parser.Classes
 {
+    /// <summary>
+    /// Enumeration contains the types of the letter.
+    /// </summary>
     public enum LetterTypes
     {
+        /// <summary>
+        /// The vowel
+        /// </summary>
         vowel,
+        
+        /// <summary>
+        /// The consonant
+        /// </summary>
         consonant
     }
 }

@@ -40,24 +40,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\DeclarativeSentence.cs" />
-    <Compile Include="Classes\Formula.cs" />
     <Compile Include="Classes\ImperativeSentence.cs" />
     <Compile Include="Classes\InterrogativeSentence.cs" />
     <Compile Include="Classes\LetterSymbol.cs" />
     <Compile Include="Classes\OtherSentence.cs" />
-    <Compile Include="Classes\ParagraphEnumerator.cs" />
-    <Compile Include="Classes\MathematicalSignSymbol.cs" />
-    <Compile Include="Classes\NumericWord.cs" />
-    <Compile Include="Classes\PunctuationSignSymbol.cs" />
-    <Compile Include="Classes\SentenceEnumerator.cs" />
-    <Compile Include="Classes\SentenceItemEnumerator.cs" />
     <Compile Include="Classes\PunctuationSign.cs" />
-    <Compile Include="Classes\SentenceSeparator.cs" />
     <Compile Include="Classes\SignSymbol.cs" />
     <Compile Include="Classes\NumericSymbol.cs" />
     <Compile Include="Enumerations\LetterTypes.cs" />
     <Compile Include="Classes\Paragraph.cs" />
-    <Compile Include="Classes\ParserHelper.cs" />
     <Compile Include="Classes\Sentence.cs" />
     <Compile Include="Classes\Symbol.cs" />
     <Compile Include="Classes\Text.cs" />

@@ -1,13 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Parser.Interfaces
+﻿namespace Parser.Interfaces
 {
+    #region Usings
+
+    using System.Collections.Generic;
+    
+    #endregion
+
+    /// <summary>
+    /// Interface used for sentences.
+    /// </summary>
+    /// <seealso cref="System.Collections.Generic.ICollection{Parser.Interfaces.ISentenceItem}" />
     public interface ISentence: ICollection<ISentenceItem>
     {
-        string CreateSentance();
+        /// <summary>
+        /// Creates the sentance.
+        /// </summary>
+        /// <returns></returns>
+        string CreateSentence();
+
+        string FormatSentence();
     }
 }

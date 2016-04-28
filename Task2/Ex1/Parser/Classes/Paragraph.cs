@@ -1,47 +1,86 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Parser.Interfaces;
-
-namespace Parser.Classes
+﻿namespace Parser.Classes
 {
-    public class Paragraph : IParagraph, ICollection<ISentence>
+    #region Usings
+
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Text;
+    using Parser.Interfaces;
+
+    #endregion
+
+    /// <summary>
+    /// Class represents the part of the text (paragraph) which consists from sentences collection.
+    /// </summary>
+    /// <seealso cref="Parser.Interfaces.IParagraph" />
+    /// <seealso cref="ISentence" />
+    public class Paragraph : IParagraph
     {
+        /// <summary>
+        /// The _items.
+        /// </summary>
         private List<ISentence> _items;
 
-        public double Indent { get; set; }
-        public double LineSpacing { get; set; }
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Paragraph"/> class.
+        /// </summary>
         public Paragraph()
         {
             _items = new List<ISentence>();
         }
 
+        /// <summary>
+        /// Gets the items.
+        /// </summary>
+        /// <value>
+        /// The items.
+        /// </value>
         public List<ISentence> Items
         {
             get { return _items; }
         }
 
         #region Implementation of ICollection
+
+        /// <summary>
+        /// Gets or sets the <see cref="ISentence"/> at the specified index.
+        /// </summary>
+        /// <value>
+        /// The <see cref="ISentence"/>.
+        /// </value>
+        /// <param name="index">The index.</param>
+        /// <returns></returns>
         public ISentence this[int index]
         {
             get { return (ISentence)_items[index]; }
             set { _items[index] = value; }
         }
 
+        /// <summary>
+        /// Adds an item to the <see cref="T:System.Collections.Generic.ICollection`1" />.
+        /// </summary>
+        /// <param name="item">The object to add to the <see cref="T:System.Collections.Generic.ICollection`1" />.</param>
         public void Add(ISentence item)
         {
             _items.Add(item);
         }
 
+        /// <summary>
+        /// Removes all items from the <see cref="T:System.Collections.Generic.ICollection`1" />.
+        /// </summary>
         public void Clear()
         {
             _items.Clear();
         }
 
+        /// <summary>
+        /// Determines whether the <see cref="T:System.Collections.Generic.ICollection`1" /> contains a specific value.
+        /// </summary>
+        /// <param name="item">The object to locate in the <see cref="T:System.Collections.Generic.ICollection`1" />.</param>
+        /// <returns>
+        /// true if <paramref name="item" /> is found in the <see cref="T:System.Collections.Generic.ICollection`1" />; otherwise, false.
+        /// </returns>
         public bool Contains(ISentence item)
         {
             bool found = false;
@@ -55,6 +94,14 @@ namespace Parser.Classes
             return found;
         }
 
+        /// <summary>
+        /// Copies to.
+        /// </summary>
+        /// <param name="array">The array.</param>
+        /// <param name="arrayIndex">Index of the array.</param>
+        /// <exception cref="System.ArgumentNullException">The array cannot be null.</exception>
+        /// <exception cref="System.ArgumentOutOfRangeException">The starting array index cannot be negative.</exception>
+        /// <exception cref="System.ArgumentException">The destination array has fewer elements than the collection.</exception>
         public void CopyTo(ISentence[] array, int arrayIndex)
         {
             if (array == null)
@@ -70,6 +117,9 @@ namespace Parser.Classes
             }
         }
 
+        /// <summary>
+        /// Gets the number of elements contained in the <see cref="T:System.Collections.Generic.ICollection`1" />.
+        /// </summary>
         public int Count
         {
             get
@@ -78,11 +128,21 @@ namespace Parser.Classes
             }
         }
 
+        /// <summary>
+        /// Gets a value indicating whether the <see cref="T:System.Collections.Generic.ICollection`1" /> is read-only.
+        /// </summary>
         public bool IsReadOnly
         {
             get { return false; }
         }
 
+        /// <summary>
+        /// Removes the first occurrence of a specific object from the <see cref="T:System.Collections.Generic.ICollection`1" />.
+        /// </summary>
+        /// <param name="item">The object to remove from the <see cref="T:System.Collections.Generic.ICollection`1" />.</param>
+        /// <returns>
+        /// true if <paramref name="item" /> was successfully removed from the <see cref="T:System.Collections.Generic.ICollection`1" />; otherwise, false. This method also returns false if <paramref name="item" /> is not found in the original <see cref="T:System.Collections.Generic.ICollection`1" />.
+        /// </returns>
         public bool Remove(ISentence item)
         {
             bool result = false;
@@ -98,15 +158,34 @@ namespace Parser.Classes
             return result;
         }
 
+        /// <summary>
+        /// Returns an enumerator that iterates through the collection.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="T:System.Collections.Generic.IEnumerator`1" /> that can be used to iterate through the collection.
+        /// </returns>
         public IEnumerator<ISentence> GetEnumerator()
         {
-            return new SentenceEnumerator(this);
+            for (int index = 0; index < _items.Count; index++)
+            {
+                yield return _items[index];
+            }
         }
 
+        /// <summary>
+        /// Returns an enumerator that iterates through a collection.
+        /// </summary>
+        /// <returns>
+        /// An <see cref="T:System.Collections.IEnumerator" /> object that can be used to iterate through the collection.
+        /// </returns>
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return new SentenceEnumerator(this);
+            for (int index = 0; index < _items.Count; index++)
+            {
+                yield return _items[index];
+            }
         }
+
         #endregion
     }
 }
