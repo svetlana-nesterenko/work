@@ -228,13 +228,13 @@
                 }
                 sb.Append(item.Chars);
             }
-            //if (_lastSign != null)
-            //{
-            //    sb.Append(_lastSign.Chars); 
-            //}
             return sb.ToString();
         }
 
+        /// <summary>
+        /// Formats the sentence.
+        /// </summary>
+        /// <returns></returns>
         public string FormatSentence()
         {
             const string spacesAfter = ",-:')}]>";

@@ -12,6 +12,8 @@
     /// <seealso cref="System.Collections.Generic.ICollection{Parser.Interfaces.ISentenceItem}" />
     public interface ISentence: ICollection<ISentenceItem>
     {
+        List<ISentenceItem> Items { get; }
+
         /// <summary>
         /// Creates the sentance.
         /// </summary>

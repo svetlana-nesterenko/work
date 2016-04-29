@@ -35,7 +35,7 @@
                         {
                             Sentence sentenceObject;
 
-                            char endSymbol = sentence.Value[sentence.Value.Trim().Length - 1];
+                            char endSymbol = sentence.Value.Trim()[sentence.Value.Trim().Length - 1];
                             switch (endSymbol)
                             {
                                 case '.':
@@ -90,22 +90,7 @@
                                 }
                             }
 
-                            //if (sentenceObject.GetLastSign() != null && sentenceObject.Items[sentenceObject.Items.Count - 1].Chars == sentenceObject.GetLastSign().Chars)
-                            //{
-                            //    sentenceObject.Remove(sentenceObject.Items[sentenceObject.Items.Count-1]);
-                            //}
-
-                            //var lastWord = sentenceObject.Items.LastOrDefault(i => i is IWord);
-                            //if (lastWord != null)
-                            //{
-                            //    int indexLastWord = sentenceObject.Items.IndexOf(lastWord);
-                            //    for (int i = indexLastWord + 1; i < sentenceObject.Items.Count; i++)
-                            //    {
-                            //        //sentenceObject.Remove(sentenceObject.Items[i]);
-                            //    }
-                            //}
-
-                            paragraphObject.Add(sentenceObject);
+                           paragraphObject.Add(sentenceObject);
                         }
                     }
                     text.Add(paragraphObject);

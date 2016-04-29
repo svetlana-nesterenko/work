@@ -5,6 +5,7 @@
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using System.Text;
     using Parser.Interfaces;
@@ -199,6 +200,12 @@
                 Where(i => i is IWord).Cast<IWord>().Where(w => w.Length == lenght).Select(s => s.Chars).Distinct().ToArray();
         }
 
+        /// <summary>
+        /// Deletes the words by a given lenght and wich begins on consonant letter.
+        /// </summary>
+        /// <param name="length">The length.</param>
+        /// <param name="letterType">Type of the letter.</param>
+        /// <returns></returns>
         public string DeleteWordsByLenght(int length, LetterTypes letterType)
         {
            foreach (var paragraph in _items)
@@ -218,24 +225,32 @@
            return this.GetText();
         }
 
-        public string Replace(int length, string substring)
+        /// <summary>
+        /// Replaces words of the specified length by substring.
+        /// </summary>
+        /// <param name="length">The length.</param>
+        /// <param name="substring">The substring.</param>
+        /// <returns></returns>
+        public string Replace(int paragraphIndex, int sentenceIndex, int length, string substring)
         {
-            foreach (var paragraph in _items)
+            if (_items.Count > paragraphIndex && _items[paragraphIndex].Items.Count > sentenceIndex)
             {
-                foreach (var sentence in paragraph)
+                ISentence searchSentence = _items[paragraphIndex].Items[sentenceIndex];
+                foreach (ISentenceItem item in searchSentence)
                 {
-                    foreach (ISentenceItem item in sentence)
+                    if (item is IWord && item.Chars.Length == length)
                     {
-                        if (item is IWord && item.Chars.Length == length)
-                        {
-                            ((Word)item).Chars = substring;
-                        }
+                        ((Word) item).Chars = substring;
                     }
                 }
             }
             return this.GetText();
         }
 
+        /// <summary>
+        /// Gets the text.
+        /// </summary>
+        /// <returns></returns>
         public string GetText()
         {
             StringBuilder stringBuilder = new StringBuilder();
@@ -251,6 +266,10 @@
             return stringBuilder.ToString();
         }
 
+        /// <summary>
+        /// Get the formatted the text.
+        /// </summary>
+        /// <returns></returns>
         public string FormatText()
         {
             StringBuilder stringBuilder = new StringBuilder();
@@ -267,6 +286,23 @@
             return stringBuilder.ToString();
         }
 
+        /// <summary>
+        /// Exports to file.
+        /// </summary>
+        /// <param name="filename">The filename.</param>
+        /// <returns></returns>
+        public bool ExportToFile(string filename)
+        {
+            try
+            {
+                File.WriteAllText(filename, FormatText());
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
         #endregion
     }
 }

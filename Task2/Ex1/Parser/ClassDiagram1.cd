@@ -22,14 +22,14 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Parser.Classes.LetterSymbol" Collapsed="true">
-    <Position X="3" Y="4.75" Width="1.5" />
+    <Position X="0.75" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAACAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAACAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Classes\LetterSymbol.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Parser.Classes.NumericSymbol" Collapsed="true">
-    <Position X="5.25" Y="4.75" Width="1.5" />
+    <Position X="3" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Classes\NumericSymbol.cs</FileName>
@@ -45,21 +45,13 @@
   <Class Name="Parser.Classes.Paragraph" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="10" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAIAAAAAAAAECBAQCAAABAQAABAAAAAEAAQAAABQIAA=</HashCode>
+      <HashCode>AAIAAAAAAAAACBAQCAAABAQAABAAAAAEAAAAAABQIAA=</HashCode>
       <FileName>Classes\Paragraph.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="Parser.Classes.ParagraphEnumerator" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="11.75" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAACAABkAAAACAAAAAAAAAAAAAIAAAQAAAAAA=</HashCode>
-      <FileName>Classes\ParagraphEnumerator.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
-  </Class>
   <Class Name="Parser.Classes.PunctuationSign" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="13.5" Y="0.5" Width="1.5" />
+    <Position X="11.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Classes\PunctuationSign.cs</FileName>
@@ -69,29 +61,13 @@
   <Class Name="Parser.Classes.Sentence" Collapsed="true">
     <Position X="4" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAIAAAAAAAAACBAQCAAARAQAABAAAAAEACCAAABQIAA=</HashCode>
+      <HashCode>AAIAAAAAAAAACBEQCAAARAQAABAAAAAEAACAAAJQIAA=</HashCode>
       <FileName>Classes\Sentence.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="Parser.Classes.SentenceEnumerator" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="10" Y="1.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAACAABkAAAACAAAAAAAAAAAAAIAAAQAAAAAA=</HashCode>
-      <FileName>Classes\SentenceEnumerator.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
-  </Class>
-  <Class Name="Parser.Classes.SentenceItemEnumerator" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="11.75" Y="1.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAACAABkAAAACAAAAAAAAAAAAAIAAAQAAAAAA=</HashCode>
-      <FileName>Classes\SentenceItemEnumerator.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
-  </Class>
   <Class Name="Parser.Classes.SignSymbol" Collapsed="true">
-    <Position X="0.75" Y="4.75" Width="1.5" />
+    <Position X="5.25" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Classes\SignSymbol.cs</FileName>
@@ -105,15 +81,15 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Parser.Classes.Text" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="13.5" Y="1.5" Width="1.5" />
+    <Position X="13.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAIAAAAAAAAAABAQCAAABAQAABAAAAAEAAAAAABQIAA=</HashCode>
+      <HashCode>AAIAAAAAAAAIABAYCAAABAQAABAAAAAEABAAAABQJCA=</HashCode>
       <FileName>Classes\Text.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" />
+    <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Parser.Classes.Word" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="11.75" Y="2.5" Width="1.5" />
+    <Position X="11.75" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAEAAAAAAAFAACAAAAABAAAAAAAAEAAAAAAAAAAA=</HashCode>
       <FileName>Classes\Word.cs</FileName>
@@ -121,30 +97,30 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Parser.TextParser" Collapsed="true">
-    <Position X="10" Y="2.5" Width="1.5" />
+    <Position X="10" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Classes\TextParser.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Interface Name="Parser.Interfaces.IParagraph" Collapsed="true">
-    <Position X="10" Y="3.75" Width="1.5" />
+    <Position X="10" Y="2.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAECAAAAAAAAAAAAAAAAAAAAAQAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Interfaces\IParagraph.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Parser.Interfaces.IPunctuation" Collapsed="true">
-    <Position X="2.75" Y="7.75" Width="1.5" />
+    <Position X="0.5" Y="7.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Interfaces\IPunctuation.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Parser.Interfaces.ISentence" Collapsed="true">
-    <Position X="11.75" Y="3.75" Width="1.5" />
+    <Position X="11.75" Y="2.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAIAAAA=</HashCode>
       <FileName>Interfaces\ISentence.cs</FileName>
     </TypeIdentifier>
   </Interface>
@@ -156,14 +132,14 @@
     </TypeIdentifier>
   </Interface>
   <Interface Name="Parser.Interfaces.IWord" Collapsed="true">
-    <Position X="0.5" Y="7.75" Width="1.5" />
+    <Position X="2.75" Y="7.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAACAAAAABAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Interfaces\IWord.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Enum Name="Parser.Classes.LetterTypes" Collapsed="true">
-    <Position X="10" Y="4.75" Width="1.5" />
+    <Position X="10" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAgAAAAAAA=</HashCode>
       <FileName>Enumerations\LetterTypes.cs</FileName>
