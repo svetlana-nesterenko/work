@@ -17,6 +17,14 @@
             }
         }
 
-        public int Position { get; private set; }
+        public override string ToString()
+        {
+            return _Symbol.Value.ToString();
+        }
+
+        public int GetLength()
+        {
+            return _Symbol.Length;
+        }
     }
 }

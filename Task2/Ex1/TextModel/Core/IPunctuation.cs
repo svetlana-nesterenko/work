@@ -2,5 +2,6 @@
 {
     public interface IPunctuation : ISentenceItem
     {
+        string Value { get; }
     }
 }

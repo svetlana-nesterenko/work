@@ -13,16 +13,14 @@ namespace TextModel.Core
             }
         }
 
-        public string Value
+        public override string ToString()
         {
-            get { return String.Join("", _Items.Select(i => i.Value)); }
+            return String.Join("", _Items.Select(i => i.Value));
         }
 
         public int GetLength()
         {
-            return _Items.Length;
+            return _Items.Select(i => i.Length).Sum();
         }
-
-        public int Position { get; private set; }
     }
 }

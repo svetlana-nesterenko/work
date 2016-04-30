@@ -2,7 +2,6 @@
 {
     public interface ISentenceItem
     {
-        string Value { get; }
-        int Position { get; }
+        int GetLength();
     }
 }

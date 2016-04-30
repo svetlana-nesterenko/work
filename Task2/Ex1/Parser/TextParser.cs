@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using TextModel.Core;
@@ -74,22 +75,31 @@ namespace Parser
             return text;
         }
 
-        private void ParseSentence(Text text, string content, Paragraph paragraphObject)
+        public IEnumerable<ISentenceItem> ParseSentenceItems(string content)
+        {
+            Paragraph paragraph = new Paragraph();
+            ParseSentence(content, paragraph);
+            return paragraph.FirstOrDefault();
+        }
+
+        private void ParseSentence(string content, Paragraph paragraphObject)
         {
             if (!String.IsNullOrWhiteSpace(content))
             {
                 Sentence sentenceObject = new Sentence();
                 MatchCollection sentenceItemCollection = Regex.Matches(content, @"(\S+)", RegexOptions.Multiline);
+                int currentIndex = 0;
                 foreach (Match sentenceItemMatch in sentenceItemCollection)
                 {
                     MatchCollection potentialWordCollection = Regex.Matches(sentenceItemMatch.Value, @"(\w*)(\W*)");
                     foreach (Match potentialWordItemMatch in potentialWordCollection)
                     {
+                        
                         Group groupWord = potentialWordItemMatch.Groups[1];
-                        string word = groupWord.Value.Trim();
+                        string word = groupWord.Value;
 
                         Group groupOther = potentialWordItemMatch.Groups[2];
-                        string punctuation = groupOther.Value.Trim();
+                        string punctuation = groupOther.Value;
 
                         if (!String.IsNullOrEmpty(word))
                         {
@@ -106,13 +116,22 @@ namespace Parser
                             }
                             else
                             {
+                                int i = 0;
                                 foreach (char c in punctuation)
                                 {
                                     ISentenceItem item = new Punctuation(c.ToString());
                                     sentenceObject.Add(item);
+                                    i++;
                                 }
                             }
                         }
+                    }
+
+                    currentIndex++;
+
+                    if (currentIndex < sentenceItemCollection.Count)
+                    {
+                        sentenceObject.Add(new WhiteSpace(" "));
                     }
                 }
 
@@ -134,7 +153,7 @@ namespace Parser
 
                     if (!String.IsNullOrWhiteSpace(sentenceMatch.Value.Trim()))
                     {
-                        ParseSentence(text, sentenceMatch.Value.Trim(), paragraphObject);
+                        ParseSentence(sentenceMatch.Value.Trim(), paragraphObject);
                     }
                 }
 
@@ -162,7 +181,7 @@ namespace Parser
                 int sentenciesTextLength = ParseParagraph(text, paragraphMatch.Value);
                 if (sentenciesTextLength < paragraphMatch.Value.Length)
                 {
-                    ParseSentence(text, paragraphMatch.Value.Substring(sentenciesTextLength), text.LastOrDefault());
+                    ParseSentence(paragraphMatch.Value.Substring(sentenciesTextLength), text.LastOrDefault());
                 }
                 _ShouldUseLastParagraph = false;
             }

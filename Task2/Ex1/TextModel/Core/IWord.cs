@@ -2,5 +2,6 @@
 {
     public interface IWord : ISentenceItem, IBaseEnumerable<Symbol>
     {
+        
     }
 }

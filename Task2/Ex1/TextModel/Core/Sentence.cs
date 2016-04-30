@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Text;
 using TextModel.Enum;
 
 namespace TextModel.Core
@@ -26,6 +27,11 @@ namespace TextModel.Core
             }
 
             return SentenceTypeEnum.Declarative;
+        }
+
+        public override string ToString()
+        {
+            return base.ToString() + " ";
         }
 
         public ISentenceItem GetLastItem()

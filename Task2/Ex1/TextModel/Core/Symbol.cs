@@ -12,6 +12,11 @@ namespace TextModel.Core
             _Value = c;
         }
 
+        public int Length
+        {
+            get { return _Value.Length; }
+        }
+
         public string Value
         {
             get { return _Value; }

@@ -6,5 +6,9 @@
     /// <seealso cref="TextModel.Core.BaseEnumerable{TextModel.Core.Sentence}" />
     public class Paragraph : BaseEnumerable<Sentence>
     {
+        public override string ToString()
+        {
+            return base.ToString() + "\r\n";
+        }
     }
 }

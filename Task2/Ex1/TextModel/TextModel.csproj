@@ -49,9 +49,11 @@
     <Compile Include="Core\Sentence.cs" />
     <Compile Include="Core\Symbol.cs" />
     <Compile Include="Core\Text.cs" />
+    <Compile Include="Core\WhiteSpace.cs" />
     <Compile Include="Core\Word.cs" />
     <Compile Include="Enum\LetterTypeEnum.cs" />
     <Compile Include="Enum\SentenceTypeEnum.cs" />
+    <Compile Include="Exceptions\UnexpectedException.cs" />
     <Compile Include="Helpers\VowelConsonantHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

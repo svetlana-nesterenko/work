@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 
 namespace TextModel.Core
 {
@@ -32,6 +33,22 @@ namespace TextModel.Core
             _Items[_Items.Length - 1] = element;
         }
 
+        public void Insert(T element, int index)
+        {
+            if (index >= _Items.Length)
+            {
+                throw new IndexOutOfRangeException("Index is out of range.");
+            }
+
+            Array.Resize(ref _Items, _Items.Length + 1);
+            for (int i = _Items.Length - 1; i > index; i--)
+            {
+                _Items[i] = _Items[i - 1];
+            }
+
+            _Items[index] = element;
+        }
+
         public void Clear()
         {
             _Items = new T[0];
@@ -56,6 +73,16 @@ namespace TextModel.Core
                 }
             }
             return false;
+        }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (var item in _Items)
+            {
+                sb.Append(item.ToString());
+            }
+            return sb.ToString();
         }
     }
 }
