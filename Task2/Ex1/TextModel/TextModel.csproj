@@ -4,16 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5F2E47AB-5ADA-41A0-B021-217844989AF4}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{BDA8DC6B-0666-49EF-974B-87110A18A2D7}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Ex1</RootNamespace>
-    <AssemblyName>Ex1</AssemblyName>
+    <RootNamespace>TextModel</RootNamespace>
+    <AssemblyName>TextModel</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -33,7 +31,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -42,22 +39,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="Core\BaseEnumerable.cs" />
+    <Compile Include="Core\IBaseEnumerable.cs" />
+    <Compile Include="Core\IPunctuation.cs" />
+    <Compile Include="Core\ISentenceItem.cs" />
+    <Compile Include="Core\IWord.cs" />
+    <Compile Include="Core\Paragraph.cs" />
+    <Compile Include="Core\Punctuation.cs" />
+    <Compile Include="Core\Sentence.cs" />
+    <Compile Include="Core\Symbol.cs" />
+    <Compile Include="Core\Text.cs" />
+    <Compile Include="Core\Word.cs" />
+    <Compile Include="Enum\LetterTypeEnum.cs" />
+    <Compile Include="Enum\SentenceTypeEnum.cs" />
+    <Compile Include="Helpers\VowelConsonantHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup />
-  <ItemGroup>
-    <ProjectReference Include="..\Parser\Parser.csproj">
-      <Project>{5773de86-048b-4a5f-a6cc-f0058ef4d095}</Project>
-      <Name>Parser</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TextModel\TextModel.csproj">
-      <Project>{bda8dc6b-0666-49ef-974b-87110a18a2d7}</Project>
-      <Name>TextModel</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
