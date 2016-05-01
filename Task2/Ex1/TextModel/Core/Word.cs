@@ -5,6 +5,11 @@ namespace TextModel.Core
 {
     public class Word : BaseEnumerable<Symbol>, IWord
     {
+        public Symbol this[int index]
+        {
+            get { return _Items[index]; }
+        }
+
         public Word(string value)
         {
             foreach (char c in value)

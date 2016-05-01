@@ -18,11 +18,16 @@ namespace Parser
     /// </summary>
     public class TextParser
     {
-        private const int _BufferSize = 20;
+        private int _BufferSize = 102400;
         private static readonly string[] _PunctuationWithMultipleSymbols = {"...", "!?"};
 
         private bool _ShouldUseLastParagraph = false;
         private string _LastParagraphContent = null;
+
+        public TextParser(int bufferSize)
+        {
+            _BufferSize = bufferSize;
+        }
 
         public Text Parse(Stream s)
         {

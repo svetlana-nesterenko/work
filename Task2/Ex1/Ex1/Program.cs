@@ -16,24 +16,44 @@
     {
         static void Main(string[] args)
         {
-            string path = ConfigurationManager.AppSettings["Path"];
+            if (ConfigurationManager.AppSettings["InputFile"] == null)
+            {
+                Console.WriteLine("Please specify \"InputFile\" path in app.config");
+                return;
+            }
 
-            TextParser parser = new TextParser();
+            if (ConfigurationManager.AppSettings["OutputFile"] == null)
+            {
+                Console.WriteLine("Please specify \"OutputFile\" path in app.config");
+                return;
+            }
+
+            string inputFile = ConfigurationManager.AppSettings["InputFile"];
+            string outputFile = ConfigurationManager.AppSettings["OutputFile"];
+
+            int bufferSize;
+            if (ConfigurationManager.AppSettings["BufferSize"] == null || !int.TryParse(ConfigurationManager.AppSettings["BufferSize"].ToString(), out bufferSize))
+            {
+                bufferSize = 102400;
+                Console.WriteLine("Will be used default size of buffer (100Kb).");
+            }
+
+            TextParser parser = new TextParser(bufferSize);
             Text text = null;
             try
             {
-                using (FileStream fs = new FileStream(path, FileMode.Open))
+                using (FileStream fs = new FileStream(inputFile, FileMode.Open))
                 {
                     text = parser.Parse(fs);
                 }
             }
             catch (FileNotFoundException ex)
             {
-                Console.WriteLine("Error: File {0} not found", path);
+                Console.WriteLine("Error: File {0} not found", inputFile);
             }
             catch (PathTooLongException ex)
             {
-                Console.WriteLine("Error: Path {0} too long", path);
+                Console.WriteLine("Error: Path {0} too long", inputFile);
             }
             catch (IOException ex)
             {
@@ -77,11 +97,12 @@
             Console.WriteLine("TASK 3");
             Console.WriteLine();
             string textReplace = "hello world";
-            IEnumerable<ISentenceItem> bla1 = parser.ParseSentenceItems(textReplace);
+            IEnumerable<ISentenceItem> newItems = parser.ParseSentenceItems(textReplace);
 
             try
             {
-                text.Replace(0, 0, 4, bla1);
+                text.Replace(0, 0, 4, newItems);
+                Console.WriteLine("Replaced OK.");
             }
             catch (IndexOutOfRangeException ex)
             {
@@ -96,7 +117,8 @@
 
             try
             {
-                text.ExportToFile("mytext.txt");
+                text.ExportToFile(outputFile, bufferSize);
+                Console.WriteLine("Exported to file \"{0}\"", outputFile);
             }
             catch (UnexpectedException ex)
             {

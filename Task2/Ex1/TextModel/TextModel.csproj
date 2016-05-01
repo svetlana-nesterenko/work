@@ -40,7 +40,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\BaseEnumerable.cs" />
-    <Compile Include="Core\IBaseEnumerable.cs" />
     <Compile Include="Core\IPunctuation.cs" />
     <Compile Include="Core\ISentenceItem.cs" />
     <Compile Include="Core\IWord.cs" />

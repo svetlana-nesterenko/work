@@ -14,8 +14,6 @@ namespace TextModel.Core
     /// <seealso cref="Paragraph" />
     public class Text : BaseEnumerable<Paragraph>
     {
-        private const int _BufferSize = 100;
-
         public IEnumerable<Sentence> GetSentencesOrderedByWordCount()
         {
             return _Items.SelectMany(s => s).OrderBy(i => { return i.ToArray().Count(w => w is IWord); });
@@ -45,10 +43,13 @@ namespace TextModel.Core
                 {
                     foreach (var item in sentence)
                     {
-                        var firstSymbol = ((IWord)item).FirstOrDefault();
-                        if (firstSymbol != null && (item is IWord && item.ToString().Length == length && firstSymbol.IsConsonant))
+                        if (item is IWord)
                         {
-                            sentence.Remove(item);
+                            var firstSymbol = ((IWord) item)[0];
+                            if (firstSymbol != null && item.ToString().Length == length && firstSymbol.IsConsonant)
+                            {
+                                sentence.Remove(item);
+                            }
                         }
                     }
                 }
@@ -85,12 +86,11 @@ namespace TextModel.Core
         /// Exports to file.
         /// </summary>
         /// <param name="filename">The filename.</param>
-        /// <exception cref="UnexpectedException">
-        /// I/O Exception
+        /// <param name="bufferSize">Size of the buffer.</param>
+        /// <exception cref="UnexpectedException">I/O Exception
         /// or
-        /// Unexpected error.
-        /// </exception>
-        public void ExportToFile(string filename)
+        /// Unexpected error.</exception>
+        public void ExportToFile(string filename, int bufferSize)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -104,11 +104,12 @@ namespace TextModel.Core
                         {
                             sb.Append(sentence.ToString());
 
-                            if (sb.Length > _BufferSize)
+                            if (sb.Length > bufferSize)
                             {
                                 byte[] buffer = Encoding.Default.GetBytes(sb.ToString());
-                                fs.Write(buffer, 0, buffer.Length);
+                                fs.Write(buffer, 0, bufferSize);
                                 sb.Clear();
+                                sb.Append(Encoding.Default.GetString(buffer, bufferSize, buffer.Length - bufferSize));
                             }
                         }
 

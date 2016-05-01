@@ -5,7 +5,7 @@ using System.Text;
 
 namespace TextModel.Core
 {
-    public abstract class BaseEnumerable<T> : IBaseEnumerable<T>
+    public abstract class BaseEnumerable<T> : IEnumerable<T>
     {
         protected T[] _Items;
 
