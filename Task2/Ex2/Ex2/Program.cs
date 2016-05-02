@@ -1,11 +1,15 @@
-﻿using System;
-using System.Configuration;
-using System.IO;
-using ConcordanceModel.Core;
-using TextModel.Exceptions;
-
-namespace Ex2
+﻿namespace Ex2
 {
+    #region Usings
+
+    using System;
+    using System.Configuration;
+    using System.IO;
+    using ConcordanceModel.Core;
+    using TextModel.Exceptions;
+
+    #endregion
+
     class Program
     {
         static void Main(string[] args)
@@ -48,11 +52,11 @@ namespace Ex2
                     text = parser.Parse(fs);
                 }
             }
-            catch (FileNotFoundException ex)
+            catch (FileNotFoundException)
             {
                 Console.WriteLine("Error: File {0} not found", inputFile);
             }
-            catch (PathTooLongException ex)
+            catch (PathTooLongException)
             {
                 Console.WriteLine("Error: Path {0} too long", inputFile);
             }

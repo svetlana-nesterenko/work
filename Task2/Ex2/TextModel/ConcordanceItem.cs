@@ -1,21 +1,48 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ConcordanceModel
+﻿namespace ConcordanceModel
 {
+    #region Usings
+    
+    using System.Collections.Generic;
+ 
+    #endregion
+
+    /// <summary>
+    /// Class represents the elements of concordance.
+    /// </summary>
     public class ConcordanceItem
     {
-        private List<int> _PageIndexes;
+        #region Private Fields
+
+        /// <summary>
+        /// The _ page indexes
+        /// </summary>
+        private readonly List<int> _PageIndexes;
+        
+        /// <summary>
+        /// The _ count
+        /// </summary>
         private int _Count;
+        
+        #endregion
+
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ConcordanceItem"/> class.
+        /// </summary>
         public ConcordanceItem()
         {
             _PageIndexes = new List<int>();
         }
+        
+        #endregion
 
+        #region Public Methods
+
+        /// <summary>
+        /// Adds the occurrence.
+        /// </summary>
+        /// <param name="pageIndex">Index of the page.</param>
         public void AddOccurrence(int pageIndex)
         {
             if (!_PageIndexes.Contains(pageIndex))
@@ -25,6 +52,12 @@ namespace ConcordanceModel
             _Count++;
         }
 
+        /// <summary>
+        /// Gets the count.
+        /// </summary>
+        /// <value>
+        /// The count.
+        /// </value>
         public int Count
         {
             get
@@ -33,9 +66,21 @@ namespace ConcordanceModel
             }
         }
 
+        #endregion
+
+        #region Public Properties
+
+        /// <summary>
+        /// Gets the page indexes.
+        /// </summary>
+        /// <value>
+        /// The page indexes.
+        /// </value>
         public int[] PageIndexes
         {
             get { return _PageIndexes.ToArray(); }
         }
+        
+        #endregion
     }
 }

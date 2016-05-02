@@ -1,18 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using TextModel.Exceptions;
-
-namespace ConcordanceModel.Core
+﻿namespace ConcordanceModel.Core
 {
+    #region Usings
+
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Text;
+    using TextModel.Exceptions;
+
+    #endregion
+
     /// <summary>
-    /// This class represents the text which consist from Page.
+    /// This class represents the text which consist from pages.
     /// </summary>
     /// <seealso cref="Page" />
     public class Text : BaseEnumerable<Page>
     {
+        #region Public Methods
+
+        /// <summary>
+        /// Creates the concordance.
+        /// </summary>
+        /// <returns></returns>
         public Dictionary<string, ConcordanceItem> CreateConcordance()
         {
             Dictionary<string, ConcordanceItem> ht = new Dictionary<string, ConcordanceItem>();
@@ -112,5 +122,7 @@ namespace ConcordanceModel.Core
                 throw new UnexpectedException("Unexpected error.", ex);
             }
         }
+        
+        #endregion
     }
 }

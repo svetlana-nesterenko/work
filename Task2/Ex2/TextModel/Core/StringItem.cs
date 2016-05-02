@@ -1,11 +1,17 @@
-﻿using System.Linq;
-using System.Text;
-using ConcordanceModel.Core;
-
-namespace ConcordanceModel.Core
+﻿namespace ConcordanceModel.Core
 {
-    public class StringItem : BaseEnumerable<Word>
+    /// <summary>
+    /// This class represents the line of text.
+    /// </summary>
+    /// <seealso cref="ConcordanceModel.Core.BaseEnumerable{ConcordanceModel.Core.Word}" />
+   public class StringItem : BaseEnumerable<Word>
     {
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
         public override string ToString()
         {
             return (base.ToString() + " ").Trim();
