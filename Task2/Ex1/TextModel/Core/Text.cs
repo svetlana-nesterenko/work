@@ -1,19 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using TextModel.Enum;
-using TextModel.Exceptions;
-
-namespace TextModel.Core
+﻿namespace TextModel.Core
 {
+    #region Usings
+
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Text;
+    using TextModel.Enum;
+    using TextModel.Exceptions;
+
+    #endregion
+
     /// <summary>
     /// This class represents the text which consist from paragraphs.
     /// </summary>
     /// <seealso cref="Paragraph" />
     public class Text : BaseEnumerable<Paragraph>
     {
+        #region Public Methods
+
+        /// <summary>
+        /// Gets the sentences ordered by word count.
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<Sentence> GetSentencesOrderedByWordCount()
         {
             return _Items.SelectMany(s => s).OrderBy(i => { return i.ToArray().Count(w => w is IWord); });
@@ -57,7 +67,7 @@ namespace TextModel.Core
         }
 
         /// <summary>
-        /// Replaces words of the specified length by substring.
+        /// Replaces words of the specified length by array of ISentenceItem.
         /// </summary>
         /// <param name="paragraphIndex">Index of the paragraph.</param>
         /// <param name="sentenceIndex">Index of the sentence.</param>
@@ -136,5 +146,7 @@ namespace TextModel.Core
                 throw new UnexpectedException("Unexpected error.", ex);
             }
         }
+        
+        #endregion
     }
 }

@@ -1,10 +1,20 @@
-﻿using System.Collections.Generic;
-using TextModel.Enum;
-
-namespace TextModel.Helpers
+﻿namespace TextModel.Helpers
 {
+    #region Usings
+
+    using System.Collections.Generic;
+    using TextModel.Enum;
+
+    #endregion
+
+    /// <summary>
+    /// Class used for defining  the letter type. 
+    /// </summary>
     public static class VowelConsonantHelper
     {
+        /// <summary>
+        /// The symbol dictionary.
+        /// </summary>
         public static Dictionary<char, LetterTypeEnum> SymbolDictionary = new Dictionary<char, LetterTypeEnum>
         {
             {'a', LetterTypeEnum.Vowel},

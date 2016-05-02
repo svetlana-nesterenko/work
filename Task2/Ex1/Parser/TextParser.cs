@@ -1,15 +1,14 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using TextModel.Core;
-
-namespace Parser
+﻿namespace Parser
 {
     #region Usings
 
     using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Text;
     using System.Text.RegularExpressions;
+    using TextModel.Core;
 
     #endregion
 
@@ -18,17 +17,50 @@ namespace Parser
     /// </summary>
     public class TextParser
     {
+        #region Private Fields
+
+        /// <summary>
+        /// The _ buffer size
+        /// </summary>
         private int _BufferSize = 102400;
+       
+        /// <summary>
+        /// The _ punctuation with multiple symbols
+        /// </summary>
         private static readonly string[] _PunctuationWithMultipleSymbols = {"...", "!?"};
 
+        /// <summary>
+        /// The _ should use last paragraph
+        /// </summary>
         private bool _ShouldUseLastParagraph = false;
+        
+        /// <summary>
+        /// The _ last paragraph content
+        /// </summary>
         private string _LastParagraphContent = null;
 
+        #endregion
+
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TextParser"/> class.
+        /// </summary>
+        /// <param name="bufferSize">Size of the buffer.</param>
         public TextParser(int bufferSize)
         {
             _BufferSize = bufferSize;
         }
 
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// Parses the specified stream.
+        /// </summary>
+        /// <param name="s">The s.</param>
+        /// <returns></returns>
         public Text Parse(Stream s)
         {
             Text text = new Text();
@@ -80,6 +112,11 @@ namespace Parser
             return text;
         }
 
+        /// <summary>
+        /// Parses the sentence items.
+        /// </summary>
+        /// <param name="content">The content.</param>
+        /// <returns></returns>
         public IEnumerable<ISentenceItem> ParseSentenceItems(string content)
         {
             Paragraph paragraph = new Paragraph();
@@ -87,6 +124,15 @@ namespace Parser
             return paragraph.FirstOrDefault();
         }
 
+        #endregion
+
+        #region Private Methods
+
+        /// <summary>
+        /// Parses the sentence.
+        /// </summary>
+        /// <param name="content">The content.</param>
+        /// <param name="paragraphObject">The paragraph object.</param>
         private void ParseSentence(string content, Paragraph paragraphObject)
         {
             if (!String.IsNullOrWhiteSpace(content))
@@ -144,6 +190,12 @@ namespace Parser
             }
         }
 
+        /// <summary>
+        /// Parses the paragraph.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <param name="content">The content.</param>
+        /// <returns></returns>
         private int ParseParagraph(Text text, string content)
         {
             int sentenciesTextLength = 0;
@@ -176,6 +228,12 @@ namespace Parser
             return sentenciesTextLength;
         }
 
+        /// <summary>
+        /// Parses the several paragraphs.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <param name="paragraphCollection">The paragraph collection.</param>
+        /// <returns></returns>
         private int ParseSeveralParagraphs(Text text, MatchCollection paragraphCollection)
         {
             int paragraphsTextLength = 0;
@@ -192,5 +250,7 @@ namespace Parser
             }
             return paragraphsTextLength;
         }
+        
+        #endregion
     }
 }
