@@ -80,8 +80,9 @@ namespace ATS
             IPort remotePort = sender as IPort;
             if (remotePort != null)
             {
+                _currentRemoteEndpoint = remotePort;
                 IncomingCallAcceptedEvent -= remotePort.OnIncomingCallAccepted;
-                remotePort.DropCallEvent += OnRemoteDrop;
+                //remotePort.DropCallEvent += OnRemoteDrop;
             }
         }
 
@@ -92,6 +93,10 @@ namespace ATS
             {
                 remotePort.DropCallEvent -= OnRemoteDrop;
                 remotePort.OnOutgoingCallEvent -= OnIncomingCall;
+                //if (_terminal != null)
+                {
+                    _terminal.PickUpPhone = false;
+                }
             }
 
             if (OnPortStateChangedEvent == null)
@@ -158,11 +163,15 @@ namespace ATS
 
         public void OnTerminalOutgoingCall(object sender, string number)
         {
+            _callInfo = new CallInfo(number, CallType.Outgoing);
             if (OnOutgoingCallEvent != null)
             {
                 OnOutgoingCallEvent(this, _number);
             }
-            _callInfo = new CallInfo(number, CallType.Outgoing);
+            else
+            {
+                _terminal.Drop();
+            }
         }
 
         public void OnTerminalDrop(object sender, EventArgs e)

@@ -39,7 +39,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BlackList.cs" />
     <Compile Include="CallInfo.cs" />
     <Compile Include="CallInfoResultType.cs" />
     <Compile Include="CallType.cs" />

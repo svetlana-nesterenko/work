@@ -11,8 +11,6 @@ namespace BillingSystem
     {
         private readonly ICollection<Client> _clientsCollection;
 
-        public event EventHandler<BlackList> GenerateBlackListEvent;
-
         public ICollection<ITariffPlan> TariffPlans;
 
 

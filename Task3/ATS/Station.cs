@@ -61,11 +61,6 @@ namespace ATS
             return keyValue.Key;
         }
 
-        public void OnBlackListReceived(object sender, BlackList blackList)
-        {
-            
-        }
-
         protected void OnPortFinished(object sender, EventArgs e)
         {
             IPort port = sender as IPort;
@@ -110,6 +105,10 @@ namespace ATS
                 if (_terminalMapping.ContainsKey(number))
                 {
                     ITerminal terminal = _terminalMapping[number];
+                    if (!terminal.IsEnabled)
+                    {
+                        return;
+                    }
                     IPort port = null;
                     if (_portMapping.ContainsKey(terminal))
                     {
@@ -118,6 +117,10 @@ namespace ATS
                     else
                     {
                         port = GetFreePort();
+                        if (port == null)
+                        {
+                            return;
+                        }
                         port.Id = terminal.Id;
                         port.CallCompletedEvent += OnCallCompleted;
                     }

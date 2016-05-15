@@ -57,7 +57,6 @@ namespace Test
             Station station = new Station(10);
 
             station.CallCompletedEvent += billing.OnCallComleted;
-            billing.GenerateBlackListEvent += station.OnBlackListReceived;
 
             ITerminal terminal1 = new Terminal();
             terminal1.Id = 1;
@@ -116,32 +115,8 @@ namespace Test
         [Test]
         public void TestATS()
         {
-            TariffStandart tariffStandart = new TariffStandart("Standart", 1.5, 20);
-            TariffLight tariffLight = new TariffLight("Discount 10", 1.1, 25, 10, 25);
-            TariffSpecial tariffSpecial = new TariffSpecial("Talk more than 3", 1.2, 30, 3, 100);
-
-            
-
-            BillingSystem.BillingSystem billing = new BillingSystem.BillingSystem();
-            billing.TariffPlans.Add(tariffStandart);
-            billing.TariffPlans.Add(tariffLight);
-            billing.TariffPlans.Add(tariffSpecial);
-
-            Client client1 = billing.AddClient("1", "Client 1");
-            client1.AddContract("1", "000", tariffStandart);
-
-            Client client2 = billing.AddClient("2", "Client 2");
-            client2.AddContract("1", "111", tariffLight);
-
-            Client client3 = billing.AddClient("3", "Client 3");
-            client3.AddContract("1", "222", tariffSpecial);
-
             Station station = new Station(10);
             
-            station.CallCompletedEvent += billing.OnCallComleted;
-            billing.GenerateBlackListEvent += station.OnBlackListReceived;
-            
-
             List<ITerminal> terminals = new List<ITerminal>();
             for (int i = 0; i < 30; i++)
             {
@@ -154,16 +129,17 @@ namespace Test
             Random r = new Random();
 
             int j = 0;
-            for (int i = 0; i < 1; i++)
+            for (int i = 0; i < 5; i++)
             {
                 ITerminal terminal1 = terminals[j];
                 ITerminal terminal2 = terminals[j + 1];
                 ITerminal terminal3 = terminals[j + 2];
 
                 terminal1.Call(GenerateNumber(j + 1));
-                Thread.Sleep(r.Next(100, 3000));
+                Assert.AreEqual(true, terminal2.IsRinging);
+                Thread.Sleep(r.Next(100, 300));
                 terminal3.Call(GenerateNumber(j + 1));
-                Thread.Sleep(r.Next(100, 3000));
+                Thread.Sleep(r.Next(100, 300));
                 Assert.AreEqual(3, station.GetPortCountInUse());
 
                 IPort port1 = station.GetPortByTerminal(terminal1);
@@ -175,33 +151,38 @@ namespace Test
                 Assert.AreEqual(PortState.OutgoingCall, port3.PortState);
 
                 terminal2.Answer();
-                Thread.Sleep(r.Next(100, 3000));
+                Assert.AreEqual(false, terminal2.IsRinging);
+                Thread.Sleep(r.Next(100, 300));
                 Assert.AreEqual(PortState.Busy, port1.PortState);
                 Assert.AreEqual(PortState.Busy, port2.PortState);
                 Assert.AreEqual(PortState.OutgoingCall, port3.PortState);
 
                 terminal2.Drop();
-                Thread.Sleep(r.Next(100, 3000));
+                Assert.AreEqual(true, terminal2.IsRinging);
+                Thread.Sleep(r.Next(100, 300));
                 Assert.AreEqual(2, station.GetPortCountInUse());
                 Assert.AreEqual(PortState.Free, port1.PortState);
                 Assert.AreEqual(PortState.IncomingCall, port2.PortState);
                 Assert.AreEqual(PortState.OutgoingCall, port3.PortState);
 
                 terminal2.Answer();
-                Thread.Sleep(r.Next(100, 3000));
+                Assert.AreEqual(false, terminal2.IsRinging);
+                Thread.Sleep(r.Next(100, 300));
                 Assert.AreEqual(PortState.Free, port1.PortState);
                 Assert.AreEqual(PortState.Busy, port2.PortState);
                 Assert.AreEqual(PortState.Busy, port3.PortState);
 
                 terminal2.Drop();
-                Thread.Sleep(r.Next(100, 3000));
+                Assert.AreEqual(false, terminal2.IsRinging);
+                Thread.Sleep(r.Next(100, 300));
                 Assert.AreEqual(0, station.GetPortCountInUse());
                 Assert.AreEqual(PortState.Free, port1.PortState);
                 Assert.AreEqual(PortState.Free, port2.PortState);
                 Assert.AreEqual(PortState.Free, port3.PortState);
 
                 terminal1.Call(GenerateNumber(j + 2));
-                Thread.Sleep(r.Next(100, 3000));
+                Assert.AreEqual(true, terminal3.IsRinging);
+                Thread.Sleep(r.Next(100, 300));
                 port1 = station.GetPortByTerminal(terminal1);
                 port3 = station.GetPortByTerminal(terminal3);
 
@@ -210,15 +191,17 @@ namespace Test
                 Assert.AreEqual(PortState.IncomingCall, port3.PortState);
                 
                 terminal1.Drop();
-                Thread.Sleep(r.Next(100, 3000));
+                Assert.AreEqual(false, terminal3.IsRinging);
+                Thread.Sleep(r.Next(100, 300));
                 Assert.AreEqual(0, station.GetPortCountInUse());
                 Assert.AreEqual(PortState.Free, port1.PortState);
                 Assert.AreEqual(PortState.Free, port2.PortState);
 
                 terminal1.Call(GenerateNumber(j + 2));
-                Thread.Sleep(r.Next(100, 3000));
+                Assert.AreEqual(true, terminal3.IsRinging);
+                Thread.Sleep(r.Next(100, 300));
                 terminal2.Call(GenerateNumber(j + 2));
-                Thread.Sleep(r.Next(100, 3000));
+                Thread.Sleep(r.Next(100, 300));
                 Assert.AreEqual(3, station.GetPortCountInUse());
 
                 port1 = station.GetPortByTerminal(terminal1);
@@ -229,59 +212,18 @@ namespace Test
                 Assert.AreEqual(PortState.IncomingCall, port3.PortState);
 
                 terminal1.Drop();
-                Thread.Sleep(r.Next(100, 3000));
+                Assert.AreEqual(true, terminal3.IsRinging);
+                Thread.Sleep(r.Next(100, 300));
                 Assert.AreEqual(2, station.GetPortCountInUse());
                 Assert.AreEqual(PortState.OutgoingCall, port2.PortState);
                 Assert.AreEqual(PortState.IncomingCall, port3.PortState);
 
                 terminal2.Drop();
-                Thread.Sleep(r.Next(100, 3000));
+                Assert.AreEqual(false, terminal3.IsRinging);
+                Thread.Sleep(r.Next(100, 300));
                 Assert.AreEqual(0, station.GetPortCountInUse());
                 j += 2;
             }
-
-            //ITerminal terminal1 = terminals[0];
-            //ITerminal terminal2 = terminals[1];
-            //ITerminal terminal3 = terminals[2];
-            //ITerminal terminal4 = terminals[3];
-            //ITerminal terminal5 = terminals[4];
-            //ITerminal terminal6 = terminals[5];
-            //ITerminal terminal7 = terminals[6];
-            //ITerminal terminal8 = terminals[7];
-            //ITerminal terminal9 = terminals[8];
-
-            //// 1 --> 2
-            //terminal1.Call(GenerateNumber(2));
-            //IPort port1 = station.GetPortByTerminal(terminal1);
-            //IPort port2 = station.GetPortByTerminal(terminal2);
-
-            //Assert.AreEqual(PortState.OutgoingCall, port1.PortState);
-            //Assert.AreEqual(PortState.IncomingCall, port2.PortState);
-
-            //terminal2.Answer();
-
-            //// 3 --> 2
-            //terminal3.Call(GenerateNumber(2));
-            //IPort port3 = station.GetPortByTerminal(terminal3);
-
-            //Assert.AreEqual(PortState.Busy, port1.PortState);
-            //Assert.AreEqual(PortState.Busy, port2.PortState);
-
-            //terminal1.Drop();
-            //Assert.AreEqual(PortState.Free, port1.PortState);
-            //Assert.AreEqual(PortState.IncomingCall, port2.PortState);
-            //Assert.AreEqual(PortState.OutgoingCall, port3.PortState);
-
-            //// 1 --> 3
-            //terminal1.Call(GenerateNumber(3));
-            //Assert.AreEqual(PortState.OutgoingCall, port1.PortState);
-            //Assert.AreEqual(PortState.IncomingCall, port2.PortState);
-            //Assert.AreEqual(PortState.OutgoingCall, port3.PortState);
-
-            //terminal2.Answer();
-            //Assert.AreEqual(PortState.OutgoingCall, port1.PortState);
-            //Assert.AreEqual(PortState.Busy, port2.PortState);
-            //Assert.AreEqual(PortState.Busy, port3.PortState);
         }
     }
 }
