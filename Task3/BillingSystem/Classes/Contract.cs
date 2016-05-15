@@ -1,22 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ATS;
-
-namespace BillingSystem
+﻿namespace BillingSystem.Classes
 {
+    #region Usings
+
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using ATS.Classes;
+    using Interfaces;
+
+    #endregion
+
     public class Contract : IContract
     {
         public string Id { get; set; }
        
         public string PhoneNumber { get; set; }
 
-        private ICollection<TariffPlanRecord> _tariffPlanHistory;
-        private ICollection<HistoryRecord> _historyRecords;
+        private readonly ICollection<TariffPlanRecord> _tariffPlanHistory;
+        private readonly ICollection<HistoryRecord> _historyRecords;
 
-        public Contract(string id, string phoneNumber, ITariffPlan tariffPlan)
+        public Contract(string id, string phoneNumber)
         {
             _tariffPlanHistory = new List<TariffPlanRecord>();
             _historyRecords = new List<HistoryRecord>();
@@ -71,20 +75,21 @@ namespace BillingSystem
 
         public IEnumerable<HistoryRecordWithSumm> GetCallHistory(DateTime start, DateTime end)
         {
-            TariffPlanRecord[] tariffPlanRecords = _tariffPlanHistory.Where(t => t.StartDate >= start && (t.EndDate == null || t.EndDate < end)).ToArray();
+            TariffPlanRecord[] tariffPlanRecords = _tariffPlanHistory.Where(t => t.StartDate <= start && (t.EndDate == null || t.EndDate > end)).ToArray();
 
+            DateTime monthBegin = new DateTime(start.Year, start.Month, 1);
             List<HistoryRecordWithSumm> list = new List<HistoryRecordWithSumm>();
             foreach (TariffPlanRecord tariffPlanRecord in tariffPlanRecords)
             {
                 var record = tariffPlanRecord;
                 list.AddRange(
                     tariffPlanRecord.TariffPlan.CalculateCost(
-                        _historyRecords.Where(r => r.start >= start && r.end <= end
+                        _historyRecords.Where(r => r.start >= monthBegin && r.end <= end
                                                    && r.start >= record.StartDate &&
                                                    (r.end < record.EndDate || record.EndDate == null))));
             }
 
-            return list;
+            return list.Where(r => r.start >= start && r.end <= end);
         }
 
         public string GenerateDetailedHistoryByNumber(DateTime start, DateTime end, string number)
@@ -119,7 +124,12 @@ namespace BillingSystem
             }
 
             sb.AppendLine();
-            sb.AppendLine(String.Format("Total price: {0}", list.Sum(h => h.Cost)));
+            double callsSumm = list.Sum(h => h.Cost);
+            double taxSumm = GetCurrentTariff().Tax;
+            sb.AppendLine(String.Format("Calls price: {0}", callsSumm));
+            sb.AppendLine(String.Format("Tax: {0}", taxSumm));
+            sb.AppendLine();
+            sb.AppendLine(String.Format("Total price: {0}", callsSumm + taxSumm));
             return sb.ToString();
         }
     }

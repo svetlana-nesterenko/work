@@ -1,19 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ATS
+﻿namespace ATS.Classes
 {
+    #region Usings
+    
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using ATS.Enum;
+    using ATS.Interfaces;
+
+    #endregion
+
     public class Port : IPort
     {
-        public int Id { get; set; }
-
         private ITerminal _terminal;
         private string _number;
-
+        private readonly ICollection<KeyValuePair<string, IPort>> _incomingNumbers;
+        private string _currentRemoteNumber;
+        private IRemoteEndpoint _currentRemoteEndpoint;
+        private CallInfo _callInfo;
         private PortState _portState;
+
+        public int Id { get; private set; }
+
         public PortState PortState
         {
             get { return _portState; }
@@ -35,20 +43,14 @@ namespace ATS
         public event EventHandler FinishedEvent;
         public event EventHandler<CallInfo> CallCompletedEvent;
 
-
-        private readonly ICollection<KeyValuePair<string, IPort>> _incomingNumbers;
-        private string _currentRemoteNumber;
-        private IRemoteEndpoint _currentRemoteEndpoint;
-
-        private CallInfo _callInfo;
-
-        public Port()
+        public Port(int id)
         {
+            Id = id;
             _portState = PortState.Free;
             _incomingNumbers = new List<KeyValuePair<string, IPort>>();
         }
 
-        public void OnIncomingCall(object sender, string number)
+        public virtual void OnIncomingCall(object sender, string number)
         {
             if (sender is IPort)
             {
@@ -73,7 +75,7 @@ namespace ATS
         }
 
 
-        public void OnIncomingCallAccepted(object sender, EventArgs e)
+        public virtual void OnIncomingCallAccepted(object sender, EventArgs e)
         {
             _callInfo.StartDate = StaticTime.CurrentTime;
             PortState = PortState.Busy;
@@ -82,21 +84,17 @@ namespace ATS
             {
                 _currentRemoteEndpoint = remotePort;
                 IncomingCallAcceptedEvent -= remotePort.OnIncomingCallAccepted;
-                //remotePort.DropCallEvent += OnRemoteDrop;
             }
         }
 
-        public void OnRemoteDrop(object sender, EventArgs e)
+        public virtual void OnRemoteDrop(object sender, EventArgs e)
         {
             IPort remotePort = sender as IPort;
             if (remotePort != null)
             {
                 remotePort.DropCallEvent -= OnRemoteDrop;
                 remotePort.OnOutgoingCallEvent -= OnIncomingCall;
-                //if (_terminal != null)
-                {
-                    _terminal.PickUpPhone = false;
-                }
+                _terminal.SetPickUpPhone(false);
             }
 
             if (OnPortStateChangedEvent == null)
@@ -115,7 +113,7 @@ namespace ATS
             OnPortStateChangedEvent -= PortStateChanged;
         }
 
-        protected void PortStateChanged(object sender, PortState state)
+        protected virtual void PortStateChanged(object sender, PortState state)
         {
             if (state == PortState.Free)
             {
@@ -152,7 +150,7 @@ namespace ATS
             }
         }
 
-        public void OnTerminalPrepareOutgoingCall(object sender, string number)
+        protected virtual void OnTerminalPrepareOutgoingCall(object sender, string number)
         {
             PortState = PortState.OutgoingCall;
             if (OnPrepareOutgoingCallEvent != null)
@@ -161,7 +159,7 @@ namespace ATS
             }
         }
 
-        public void OnTerminalOutgoingCall(object sender, string number)
+        protected virtual void OnTerminalOutgoingCall(object sender, string number)
         {
             _callInfo = new CallInfo(number, CallType.Outgoing);
             if (OnOutgoingCallEvent != null)
@@ -174,7 +172,7 @@ namespace ATS
             }
         }
 
-        public void OnTerminalDrop(object sender, EventArgs e)
+        protected virtual void OnTerminalDrop(object sender, EventArgs e)
         {
             if (DropCallEvent != null)
             {
@@ -196,13 +194,13 @@ namespace ATS
             OnPortStateChangedEvent -= PortStateChanged;
         }
 
-        public void OnTerminalAnswer(object sender, EventArgs e)
+        protected virtual void OnTerminalAnswer(object sender, EventArgs e)
         {
             _callInfo.StartDate = StaticTime.CurrentTime;
             PortState = PortState.Busy;
             if (IncomingCallAcceptedEvent != null)
             {
-                _currentRemoteEndpoint.DropCallEvent += OnRemoteDrop;
+                //_currentRemoteEndpoint.DropCallEvent += OnRemoteDrop;
                 IncomingCallAcceptedEvent(this, null);
                 IncomingCallAcceptedEvent -= _currentRemoteEndpoint.OnIncomingCallAccepted;
                 DropCallEvent += _currentRemoteEndpoint.OnRemoteDrop;

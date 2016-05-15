@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BillingSystem
+﻿namespace BillingSystem.Classes.Tariffs
 {
+    #region Usings
+
+    using System.Collections.Generic;
+
+    #endregion
+
     public class TariffSpecial : TariffPlan
     {
         public int Limit;
@@ -17,9 +17,9 @@ namespace BillingSystem
             foreach (HistoryRecord hr in historyRecords)
             {
                 double callCost = 0;
-                if (!hr.incoming)
+                if (!hr.incoming && hr.success)
                 {
-                    int duration = hr.end.Subtract(hr.start).Seconds;
+                    double duration = hr.end.Subtract(hr.start).TotalMinutes;
                     
                     if (duration > Limit)
                     {

@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ATS;
-
-namespace BillingSystem
+﻿namespace BillingSystem.Interfaces
 {
+    #region Usings
+
+    using System;
+    using System.Collections.Generic;
+    using BillingSystem.Classes;
+
+    #endregion
+
     public interface IContract
     {
         string Id { get; }

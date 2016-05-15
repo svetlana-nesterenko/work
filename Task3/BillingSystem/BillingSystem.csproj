@@ -39,19 +39,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BillingSystem.cs" />
-    <Compile Include="Contract.cs" />
-    <Compile Include="HistoryRecord.cs" />
-    <Compile Include="HistoryRecordWithSumm.cs" />
-    <Compile Include="IContract.cs" />
-    <Compile Include="ITariffPlan.cs" />
-    <Compile Include="Client.cs" />
+    <Compile Include="Classes\BillingSystem.cs" />
+    <Compile Include="Classes\Contract.cs" />
+    <Compile Include="Classes\HistoryRecord.cs" />
+    <Compile Include="Classes\HistoryRecordWithSumm.cs" />
+    <Compile Include="Interfaces\IContract.cs" />
+    <Compile Include="Interfaces\ITariffPlan.cs" />
+    <Compile Include="Classes\Client.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TariffPlan.cs" />
-    <Compile Include="TariffPlanRecord.cs" />
-    <Compile Include="TariffSpecial.cs" />
-    <Compile Include="TariffLight.cs" />
-    <Compile Include="TariffStandart.cs" />
+    <Compile Include="Classes\Tariffs\TariffPlan.cs" />
+    <Compile Include="Classes\TariffPlanRecord.cs" />
+    <Compile Include="Classes\Tariffs\TariffSpecial.cs" />
+    <Compile Include="Classes\Tariffs\TariffLight.cs" />
+    <Compile Include="Classes\Tariffs\TariffStandart.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ATS\ATS.csproj">

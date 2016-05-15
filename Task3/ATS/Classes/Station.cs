@@ -1,18 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ATS
+﻿namespace ATS.Classes
 {
+    #region Usings
+
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using ATS.Interfaces;
+
+    #endregion
+
     public class Station
     {
-        private ICollection<ITerminal> _terminalCollection;
-        private ICollection<IPort> _portCollection;
+        private readonly ICollection<IPort> _portCollection;
         private int _portCount;
-        private IDictionary<ITerminal, IPort> _portMapping;
-        private IDictionary<string, ITerminal> _terminalMapping;
+        private readonly IDictionary<ITerminal, IPort> _portMapping;
+        private readonly IDictionary<string, ITerminal> _terminalMapping;
 
         public event EventHandler<CallInfo> CallCompletedEvent;
 
@@ -24,9 +26,8 @@ namespace ATS
             _portCollection = new List<IPort>();
             for (int i = 0; i < portCount; i++)
             {
-                _portCollection.Add(new Port());
+                _portCollection.Add(new Port(i));
             }
-            _terminalCollection = new List<ITerminal>();
             _portMapping = new Dictionary<ITerminal, IPort>();
         }
 
@@ -46,6 +47,21 @@ namespace ATS
             return false;
         }
 
+        public bool RemoveTerminal(ITerminal terminal)
+        {
+            if (terminal != null)
+            {
+                string number = GetNumberForTerminal(terminal);
+                if (number != null)
+                {
+                    terminal.Drop();
+                    _terminalMapping.Remove(number);
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public IPort GetPortByTerminal(ITerminal terminal)
         {
             if (_portMapping.ContainsKey(terminal))
@@ -61,7 +77,7 @@ namespace ATS
             return keyValue.Key;
         }
 
-        protected void OnPortFinished(object sender, EventArgs e)
+        protected virtual void OnPortFinished(object sender, EventArgs e)
         {
             IPort port = sender as IPort;
             if (port != null)
@@ -75,7 +91,7 @@ namespace ATS
             }
         }
 
-        protected void OnPingEvent(object sender, EventArgs e)
+        protected virtual void OnPingEvent(object sender, EventArgs e)
         {
             ITerminal terminal = sender as ITerminal;
             if (terminal != null)
@@ -85,7 +101,6 @@ namespace ATS
                     IPort freePort = GetFreePort();
                     if (freePort != null)
                     {
-                        freePort.Id = terminal.Id;
                         freePort.OnPrepareOutgoingCallEvent += OnPrepareOutgoingCallEvent;
                         freePort.WorkWithTerminal(terminal, GetNumberForTerminal(terminal));
                         freePort.FinishedEvent += OnPortFinished;
@@ -97,7 +112,7 @@ namespace ATS
             }
         }
 
-        protected void OnPrepareOutgoingCallEvent(object sender, string number)
+        protected virtual void OnPrepareOutgoingCallEvent(object sender, string number)
         {
             IPort sourcePort = sender as IPort;
             if (sourcePort != null)
@@ -121,7 +136,6 @@ namespace ATS
                         {
                             return;
                         }
-                        port.Id = terminal.Id;
                         port.CallCompletedEvent += OnCallCompleted;
                     }
                     
@@ -137,7 +151,7 @@ namespace ATS
         }
 
 
-        protected void OnCallCompleted(object sender, CallInfo callInfo)
+        protected virtual void OnCallCompleted(object sender, CallInfo callInfo)
         {
             IPort port = sender as IPort;
             if (port != null)

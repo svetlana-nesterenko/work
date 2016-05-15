@@ -1,17 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ATS
+﻿namespace ATS.Interfaces
 {
+    #region Usings
+
+    using System;
+
+    #endregion
+
     public interface ITerminal
     {
         bool IsRinging { get; }
-        int Id { get; set; }
-        bool PickUpPhone { get; set; }
+        int Id { get; }
+        bool PickUpPhone { get; }
         bool IsEnabled { get; }
 
         event EventHandler PingEvent;
@@ -20,6 +19,7 @@ namespace ATS
         event EventHandler DropEvent;
         event EventHandler AnswerEvent;
 
+        void SetPickUpPhone(bool flag);
         void Plug();
         void UnPlug();
         void IncomingCall(string number);

@@ -1,24 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ATS
+﻿namespace ATS.Classes
 {
+    #region Usings
+
+    using System;
+    using Interfaces;
+
+    #endregion
+
     public class Terminal : ITerminal
     {
         private bool _pickUpPhone { get; set; }
         private bool _isRinging { get; set; }
         private bool _isEnabled { get; set; }
 
-        
+        public Terminal(int id)
+        {
+            Id = id;
+        }
         public bool IsRinging
         {
             get { return _isRinging; }
         }
 
-        public int Id { get; set; }
+        public int Id { get; private set; }
 
         public bool PickUpPhone
         {
@@ -41,7 +45,7 @@ namespace ATS
         public event EventHandler DropEvent;
         public event EventHandler AnswerEvent;
         
-        public void Plug()
+        public void UnPlug()
         {
             _isEnabled = false;
             if (_pickUpPhone)
@@ -50,7 +54,12 @@ namespace ATS
             }
         }
 
-        public void UnPlug()
+        public void SetPickUpPhone(bool flag)
+        {
+            PickUpPhone = flag;
+        }
+
+        public void Plug()
         {
             _isEnabled = true;
         }
@@ -65,7 +74,7 @@ namespace ATS
 
         public void Call(string number)
         {
-            if (PingEvent != null && !PickUpPhone)
+            if (_isEnabled && PingEvent != null && !PickUpPhone)
             {
                 PingEvent(this, null);
 
@@ -84,7 +93,7 @@ namespace ATS
 
         public void Drop()
         {
-            if (DropEvent != null && PickUpPhone)
+            if (_isEnabled && DropEvent != null && PickUpPhone)
             {
                 PickUpPhone = false;
                 DropEvent(this, null);

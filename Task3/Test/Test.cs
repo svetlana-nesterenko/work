@@ -1,15 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using ATS;
-using BillingSystem;
-using NUnit.Framework;
-
-namespace Test
+﻿namespace Test
 {
+    #region Usings
+
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading;
+    using ATS.Classes;
+    using ATS.Enum;
+    using ATS.Interfaces;
+    using BillingSystem.Classes;
+    using BillingSystem.Classes.Tariffs;
+    using BillingSystem.Interfaces;
+    using NUnit.Framework;
+
+    #endregion
+
     public class Test
     {
         private string GenerateNumber(int i )
@@ -18,7 +24,7 @@ namespace Test
         }
 
         [Test]
-        public void BillingTest()
+        public void BillingTest_2_clients()
         {
             DateTime startDate = new DateTime(2016, 05, 01, 09, 00, 00);
             DateTime endDate = new DateTime(2016, 06, 30, 22, 00, 00);
@@ -29,12 +35,74 @@ namespace Test
             TariffLight tariffLight = new TariffLight("Discount 10", 1.1, 25, 10, 25);
             TariffSpecial tariffSpecial = new TariffSpecial("Talk more than 3", 1.2, 30, 3, 100);
 
-            int pauseBetweenAnswer = 10; //sec
-            int pauseBetweenDrop = 5; //min
-            int pauseBetweenNextCall = 15; //day
+            BillingSystem billing = new BillingSystem();
+            billing.TariffPlans.Add(tariffStandart);
+            billing.TariffPlans.Add(tariffLight);
+            billing.TariffPlans.Add(tariffSpecial);
+
+            Client client1 = billing.AddClient("1", "Client 1");
+            string client1_number = "111111";
+            client1.AddContract("1", client1_number, tariffStandart);
+            IContract client1_Contract1 = client1.GetContractByNumber(client1_number);
+
+            Client client2 = billing.AddClient("2", "Client 2");
+            string client2_number = "222222";
+            client2.AddContract("1", client2_number, tariffLight);
+            IContract client2_Contract1 = client2.GetContractByNumber(client2_number);
+
+            Station station = new Station(10);
+            station.CallCompletedEvent += billing.OnCallComleted;
+
+            ITerminal terminal1 = new Terminal(1);
+            terminal1.Plug();
+            station.AddTerminal(client1_Contract1.PhoneNumber, terminal1);
+
+            ITerminal terminal2 = new Terminal(2);
+            terminal2.Plug();
+            station.AddTerminal(client2_Contract1.PhoneNumber, terminal2);
+
+            terminal1.Call(client2_number);
+            StaticTime.AddSeconds(5);
+            terminal2.Answer();
+            StaticTime.AddMinutes(5);
+            terminal2.Drop();
+
+            StaticTime.CurrentTime = startDate.AddDays(1);
+            terminal2.Call(client1_number);
+            terminal1.Answer();
+            StaticTime.AddMinutes(5);
+            terminal1.Drop();
+
+            StaticTime.CurrentTime = startDate.AddDays(2);
+            terminal2.Call(client1_number);
+            terminal1.Answer();
+            StaticTime.AddMinutes(10);
+            terminal2.Drop();
 
 
-            BillingSystem.BillingSystem billing = new BillingSystem.BillingSystem();
+            IEnumerable<HistoryRecordWithSumm> history_client1 = client1_Contract1.GetCallHistory(startDate, startDate.AddDays(1));
+            Assert.AreEqual(tariffStandart.Cost * 5, history_client1.Sum(h => h.Cost));
+
+            IEnumerable<HistoryRecordWithSumm> history1_client2 = client2_Contract1.GetCallHistory(startDate.AddDays(1), startDate.AddDays(2));
+            Assert.AreEqual((tariffLight.Cost - tariffLight.Cost / 100 * tariffLight.Discount) * 5, history1_client2.Sum(h => h.Cost));
+
+            IEnumerable<HistoryRecordWithSumm> history2_client2 = client2_Contract1.GetCallHistory(startDate.AddDays(2), startDate.AddDays(3));
+            Assert.AreEqual(tariffLight.Cost * 5 + (tariffLight.Cost - tariffLight.Cost/100*tariffLight.Discount) * 5, history2_client2.Sum(h => h.Cost));
+        }
+
+        [Test]
+        public void BillingTest_3_clients()
+        {
+            DateTime startDate = new DateTime(2016, 05, 01, 09, 00, 00);
+            DateTime endDate = new DateTime(2016, 06, 30, 22, 00, 00);
+
+            StaticTime.CurrentTime = startDate;
+
+            TariffStandart tariffStandart = new TariffStandart("Standart", 1.5, 20);
+            TariffLight tariffLight = new TariffLight("Discount 10", 1.1, 25, 10, 25);
+            TariffSpecial tariffSpecial = new TariffSpecial("Talk more than 3", 1.2, 30, 3, 100);
+
+            BillingSystem billing = new BillingSystem();
             billing.TariffPlans.Add(tariffStandart);
             billing.TariffPlans.Add(tariffLight);
             billing.TariffPlans.Add(tariffSpecial);
@@ -55,19 +123,18 @@ namespace Test
             IContract client3_Contract1 = client3.GetContractByNumber(client3_number);
 
             Station station = new Station(10);
-
             station.CallCompletedEvent += billing.OnCallComleted;
 
-            ITerminal terminal1 = new Terminal();
-            terminal1.Id = 1;
+            ITerminal terminal1 = new Terminal(1);
+            terminal1.Plug();
             station.AddTerminal(client1_Contract1.PhoneNumber, terminal1);
 
-            ITerminal terminal2 = new Terminal();
-            terminal2.Id = 2;
+            ITerminal terminal2 = new Terminal(2);
+            terminal2.Plug();
             station.AddTerminal(client2_Contract1.PhoneNumber, terminal2);
 
-            ITerminal terminal3 = new Terminal();
-            terminal3.Id = 3;
+            ITerminal terminal3 = new Terminal(3);
+            terminal3.Plug();
             station.AddTerminal(client3_Contract1.PhoneNumber, terminal3);
 
             terminal1.Call(client2_number);
@@ -120,8 +187,8 @@ namespace Test
             List<ITerminal> terminals = new List<ITerminal>();
             for (int i = 0; i < 30; i++)
             {
-                ITerminal terminal = new Terminal();
-                terminal.Id = i;
+                ITerminal terminal = new Terminal(i);
+                terminal.Plug();
                 terminals.Add(terminal);
                 station.AddTerminal(GenerateNumber(i), terminal);
             }

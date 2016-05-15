@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BillingSystem
+﻿namespace BillingSystem.Classes
 {
+    #region Usings
+
+    using System;
+    using Interfaces;
+    
+    #endregion
+
     public class TariffPlanRecord
     {
         public DateTime StartDate;

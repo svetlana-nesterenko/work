@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ATS;
-
-namespace BillingSystem
+﻿namespace BillingSystem.Classes
 {
+    #region Usings
+
+    using System.Collections.Generic;
+    using System.Linq;
+    using ATS.Classes;
+    using ATS.Enum;
+    using Interfaces;
+
+    #endregion
+
     public class BillingSystem
     {
         private readonly ICollection<Client> _clientsCollection;
@@ -21,7 +24,7 @@ namespace BillingSystem
         }
 
 
-        public void OnCallComleted(object sender, CallInfo callInfo)
+        public virtual void OnCallComleted(object sender, CallInfo callInfo)
         {
             IContract contract = _clientsCollection.SelectMany(c => c.Contracts).FirstOrDefault(c => c.PhoneNumber.Equals(callInfo.MyNumber));
             if (contract != null)

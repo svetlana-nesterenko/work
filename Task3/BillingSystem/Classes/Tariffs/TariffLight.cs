@@ -1,25 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BillingSystem
+﻿namespace BillingSystem.Classes.Tariffs
 {
+    #region Usings
+
+    using System.Collections.Generic;
+
+    #endregion
+
     public class TariffLight : TariffPlan
     {
         public int Limit { get; set; }
         public int Discount { get; set; }
         public override IEnumerable<HistoryRecordWithSumm> CalculateCost(IEnumerable<HistoryRecord> historyRecords)
         {
-            int minutesCounter = 0;
+            double minutesCounter = 0;
             List<HistoryRecordWithSumm> list = new List<HistoryRecordWithSumm>();
             foreach (HistoryRecord hr in historyRecords)
             {
                 double callCost = 0;
-                if (!hr.incoming)
+                if (!hr.incoming && hr.success)
                 {
-                    int duration = hr.end.Subtract(hr.start).Seconds;
+                    double duration = hr.end.Subtract(hr.start).TotalMinutes;
                     minutesCounter += duration;
 
                     if (minutesCounter <= Limit)
@@ -28,8 +28,8 @@ namespace BillingSystem
                     }
                     else
                     {
-                        int nonDiscountMinutes = (minutesCounter - Limit);
-                        int discountMinutes = duration - nonDiscountMinutes;
+                        double nonDiscountMinutes = (minutesCounter - Limit);
+                        double discountMinutes = duration - nonDiscountMinutes;
                         callCost = nonDiscountMinutes*Cost + discountMinutes*(Cost - Cost/100*Discount);
                     }
                 }

@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ATS
+﻿namespace ATS.Classes
 {
+    #region Usings
+
+    using System;
+
+    #endregion
+
     public static class StaticTime
     {
         public static DateTime CurrentTime;

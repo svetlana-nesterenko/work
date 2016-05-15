@@ -1,11 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BillingSystem
+﻿namespace BillingSystem.Classes
 {
+    #region Usings
+
+    using System.Collections.Generic;
+    using System.Linq;
+    using Interfaces;
+
+    #endregion
+
     public class Client
     {
         private string _passportId { get; set; }
@@ -22,7 +24,7 @@ namespace BillingSystem
 
         public void AddContract(string id, string phoneNumber, ITariffPlan tariffPlan)
         {
-            IContract contract = new Contract(id, phoneNumber, tariffPlan);
+            IContract contract = new Contract(id, phoneNumber);
             contract.ChangeTariff(tariffPlan);
             Contracts.Add(contract);
         }

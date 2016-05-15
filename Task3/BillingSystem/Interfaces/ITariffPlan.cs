@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BillingSystem
+﻿namespace BillingSystem.Interfaces
 {
+    #region Usings
+
+    using System.Collections.Generic;
+    using BillingSystem.Classes;
+
+    #endregion
+
     public interface ITariffPlan
     {
         string Name { get; }
