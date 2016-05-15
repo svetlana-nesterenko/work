@@ -14,6 +14,9 @@ namespace ATS
         private IDictionary<ITerminal, IPort> _portMapping;
         private IDictionary<string, ITerminal> _terminalMapping;
 
+        public event EventHandler<CallInfo> CallCompletedEvent;
+
+
         public Station(int portCount)
         {
             _terminalMapping = new Dictionary<string, ITerminal>();
@@ -58,12 +61,19 @@ namespace ATS
             return keyValue.Key;
         }
 
+        public void OnBlackListReceived(object sender, BlackList blackList)
+        {
+            
+        }
+
         protected void OnPortFinished(object sender, EventArgs e)
         {
             IPort port = sender as IPort;
             if (port != null)
             {
                 port.FinishedEvent -= OnPortFinished;
+                port.CallCompletedEvent -= OnCallCompleted;
+                port.OnPrepareOutgoingCallEvent -= OnPrepareOutgoingCallEvent;
                 port.ClearAllEvents();
                 KeyValuePair<ITerminal, IPort> keyValue = _portMapping.FirstOrDefault(kv => kv.Value == port);
                 _portMapping.Remove(keyValue);
@@ -84,6 +94,8 @@ namespace ATS
                         freePort.OnPrepareOutgoingCallEvent += OnPrepareOutgoingCallEvent;
                         freePort.WorkWithTerminal(terminal, GetNumberForTerminal(terminal));
                         freePort.FinishedEvent += OnPortFinished;
+                        freePort.CallCompletedEvent += OnCallCompleted;
+
                         _portMapping.Add(terminal, freePort);
                     }
                 }
@@ -107,6 +119,7 @@ namespace ATS
                     {
                         port = GetFreePort();
                         port.Id = terminal.Id;
+                        port.CallCompletedEvent += OnCallCompleted;
                     }
                     
                     sourcePort.OnOutgoingCallEvent += port.OnIncomingCall;
@@ -119,8 +132,24 @@ namespace ATS
                 }
             }
         }
-    
 
+
+        protected void OnCallCompleted(object sender, CallInfo callInfo)
+        {
+            IPort port = sender as IPort;
+            if (port != null)
+            {
+                KeyValuePair<ITerminal, IPort> keyValue = _portMapping.FirstOrDefault(kv => kv.Value == port);
+                string sourceNumber = GetNumberForTerminal(keyValue.Key);
+                callInfo.MyNumber = sourceNumber;
+
+                if (CallCompletedEvent != null)
+                {
+                    CallCompletedEvent(this, callInfo);
+                }
+            }
+        }
+    
         protected IPort GetFreePort()
         {
             return _portCollection.Except(_portMapping.Values).FirstOrDefault();

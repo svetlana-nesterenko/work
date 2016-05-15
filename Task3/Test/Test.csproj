@@ -50,6 +50,10 @@
       <Project>{685DF395-65D4-4529-8394-1C99A95B1A32}</Project>
       <Name>ATS</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BillingSystem\BillingSystem.csproj">
+      <Project>{C1CD18FA-C539-4876-A55B-B531864D7253}</Project>
+      <Name>BillingSystem</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
