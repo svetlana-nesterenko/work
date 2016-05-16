@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ATS;
-using ATS.Classes;
-using ATS.Interfaces;
-using BillingSystem;
-using BillingSystem.Classes;
-using BillingSystem.Classes.Tariffs;
-using BillingSystem.Interfaces;
-
-namespace Task3
+﻿namespace Task3
 {
+    #region Usings
+
+    using System;
+    using ATS.Classes;
+    using ATS.Interfaces;
+    using BillingSystem.Classes;
+    using BillingSystem.Classes.Tariffs;
+    using BillingSystem.Interfaces;
+
+    #endregion
+
     class Program
     {
         static void Main(string[] args)
@@ -26,7 +24,7 @@ namespace Task3
             TariffLight tariffLight = new TariffLight("Discount 10", 1.1, 25, 10, 25);
             TariffSpecial tariffSpecial = new TariffSpecial("Talk more than 3", 1.2, 30, 3, 100);
 
-            BillingSystem.Classes.BillingSystem billing = new BillingSystem.Classes.BillingSystem();
+            BillingSystem billing = new BillingSystem();
             billing.TariffPlans.Add(tariffStandart);
             billing.TariffPlans.Add(tariffLight);
             billing.TariffPlans.Add(tariffSpecial);

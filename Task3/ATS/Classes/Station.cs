@@ -9,16 +9,41 @@
 
     #endregion
 
+    /// <summary>
+    /// Class represents the automatic telephone station.
+    /// </summary>
     public class Station
     {
+        #region Private Fields
+
+        /// <summary>
+        /// The port collection.
+        /// </summary>
         private readonly ICollection<IPort> _portCollection;
+
+        /// <summary>
+        /// The port count.
+        /// </summary>
         private int _portCount;
+
+        /// <summary>
+        /// The port mapping.
+        /// </summary>
         private readonly IDictionary<ITerminal, IPort> _portMapping;
+
+        /// <summary>
+        /// The terminal mapping.
+        /// </summary>
         private readonly IDictionary<string, ITerminal> _terminalMapping;
 
-        public event EventHandler<CallInfo> CallCompletedEvent;
+        #endregion
 
+        #region Constructors
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Station"/> class.
+        /// </summary>
+        /// <param name="portCount">The port count.</param>
         public Station(int portCount)
         {
             _terminalMapping = new Dictionary<string, ITerminal>();
@@ -31,11 +56,34 @@
             _portMapping = new Dictionary<ITerminal, IPort>();
         }
 
+        #endregion
+
+        #region Events
+
+        /// <summary>
+        /// Fires when port finished work with current connection.
+        /// </summary>
+        public event EventHandler<CallInfo> CallCompletedEvent;
+
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// Gets the count of used port.
+        /// </summary>
+        /// <returns></returns>
         public int GetPortCountInUse()
         {
             return _portMapping.Count;
         }
 
+        /// <summary>
+        /// Adds the terminal.
+        /// </summary>
+        /// <param name="number">The number.</param>
+        /// <param name="terminal">The terminal.</param>
+        /// <returns></returns>
         public bool AddTerminal(string number, ITerminal terminal)
         {
             if (!_terminalMapping.ContainsKey(number))
@@ -47,6 +95,11 @@
             return false;
         }
 
+        /// <summary>
+        /// Removes the terminal.
+        /// </summary>
+        /// <param name="terminal">The terminal.</param>
+        /// <returns></returns>
         public bool RemoveTerminal(ITerminal terminal)
         {
             if (terminal != null)
@@ -62,6 +115,11 @@
             return false;
         }
 
+        /// <summary>
+        /// Gets the port by terminal.
+        /// </summary>
+        /// <param name="terminal">The terminal.</param>
+        /// <returns></returns>
         public IPort GetPortByTerminal(ITerminal terminal)
         {
             if (_portMapping.ContainsKey(terminal))
@@ -71,12 +129,26 @@
             return null;
         }
 
+        /// <summary>
+        /// Gets the number for terminal.
+        /// </summary>
+        /// <param name="terminal">The terminal.</param>
+        /// <returns></returns>
         public string GetNumberForTerminal(ITerminal terminal)
         {
             KeyValuePair<string, ITerminal> keyValue = _terminalMapping.FirstOrDefault(kv => kv.Value == terminal);
             return keyValue.Key;
         }
 
+        #endregion
+
+        #region Protected Methods
+
+        /// <summary>
+        /// Reacts when port finished work with current connection.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected virtual void OnPortFinished(object sender, EventArgs e)
         {
             IPort port = sender as IPort;
@@ -91,6 +163,11 @@
             }
         }
 
+        /// <summary>
+        /// Attach port to terminal.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected virtual void OnPingEvent(object sender, EventArgs e)
         {
             ITerminal terminal = sender as ITerminal;
@@ -112,6 +189,11 @@
             }
         }
 
+        /// <summary>
+        /// Prepares outgoing call.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="number">The number.</param>
         protected virtual void OnPrepareOutgoingCallEvent(object sender, string number)
         {
             IPort sourcePort = sender as IPort;
@@ -151,6 +233,11 @@
         }
 
 
+        /// <summary>
+        /// Called when call completed.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="callInfo">The call information.</param>
         protected virtual void OnCallCompleted(object sender, CallInfo callInfo)
         {
             IPort port = sender as IPort;
@@ -166,10 +253,17 @@
                 }
             }
         }
-    
+
+        /// <summary>
+        /// Gets the free port.
+        /// </summary>
+        /// <returns></returns>
         protected IPort GetFreePort()
         {
             return _portCollection.Except(_portMapping.Values).FirstOrDefault();
         }
+
+        #endregion
+
     }
 }

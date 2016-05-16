@@ -6,26 +6,29 @@
    
     #endregion
 
+    /// <summary>
+    /// Class used for representing call in history.
+    /// </summary>
     public class HistoryRecord
     {
         /// <summary>
-        /// True if incoming call, false if outgoing call
+        /// True if incoming call, false if outgoing call.
         /// </summary>
         public bool incoming;
         /// <summary>
-        /// The success: true if call is answered/accepted
+        /// The success: true if call is answered/accepted.
         /// </summary>
         public bool success;
         /// <summary>
-        /// The start time
+        /// The start time.
         /// </summary>
         public DateTime start;
         /// <summary>
-        /// The end time
+        /// The end time.
         /// </summary>
         public DateTime end;
         /// <summary>
-        /// The number: remote phone number
+        /// The number: remote phone number.
         /// </summary>
         public string number;
 
